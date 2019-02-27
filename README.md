@@ -1,0 +1,2 @@
+# EventIt
+Software Engineering Project
