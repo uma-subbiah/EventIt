@@ -15,9 +15,8 @@ var config = {
 http.createServer(function (req, res) 
 {
 	var q = url.parse(req.url, true);
-	var filename = "./pages/static" + q.pathname;
-	if(filename[filename.length-1]=='/')
-		filename+='index.html';
+	var filename = "./pages/static/enter_caterer.html" ;
+
 	console.log(q.pathname);
 	if(q.pathname=='/ContactUs')
 	{
@@ -77,11 +76,11 @@ http.createServer(function (req, res)
 		console.log("End");
 		return;
 	}
-	else if(q.pathname=='/register')
+	else if(q.pathname=='/enter_caterer')
 	{
 		//filename+='.html';
 		res.writeHead(200, {'Content-Type': 'text/html'});
-		fs.readFile('./pages/static/registration.html', function(err, data){
+		fs.readFile('./pages/static/enter_caterer.html', function(err, data){
 			var st=data.toString();
 			console.log(data.toString());
 			res.write(st);
@@ -96,11 +95,17 @@ http.createServer(function (req, res)
 		{
 			sql.connect(config, function (err){
 				var request = new sql.Request();
-				request.input('uname',fields['uname']);
-				request.input('pass',fields['pass']);
-				request.query("insert into test(username,pass) values(@uname,@pass);",function(err, result){
+				request.input('cname',fields['cname']);
+				request.input('lname',fields['lname']);
+				request.input('mobile',fields['mobile']);
+				request.input('email',fields['email']);
+				request.input('oaddress',fields['oaddress']);
+				request.input('phone',fields['phone']);
+				request.input('service',fields['service']);
+				request.input('city',fields['city']);
+				request.query("insert into test_caterer(cname,lname,mobile,email,oaddress,phone,service,city) values(@cname,@lname,@mobile,@email,@oaddress,@phone,@service,@city);",function(err, result){
 					console.log(result);
-					console.log(fields['fname']+" "+fields['lname']+"\n"+err);
+					console.log(fields['cname']+err);
 					sql.close();
 					res.end();
 					return;
