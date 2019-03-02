@@ -1,249 +1,63 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>TODO supply a title</title>
-     <style>
-         .bg {
-  /* The image used */
-  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkHTg99SGnnNde2dcpaKPnT_Sv4rpZ4cNdhntiuM_tUeBtqEbyvw");
-  background-repeat: repeat-y;
-  /* Full height */
-  
 
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
- .wrapper{text-align: center;}
-  input[type=button], input[type=submit], input[type=reset] {
-  background-color: #2196F3;
-  border: none;
-  color: white;
-  padding: 8px 8px;
-  text-decoration: none;
-  margin: 16px 2px;
-  cursor: pointer;
-  font-family: "Comic Sans MS";
-  font-size: 30px; 
-  
-    
-   
-}
-        .container {
-  font-family: "Lucida Console";
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 6px;
-  cursor: pointer;
-  font-size: 20px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEProject</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Contact-Form-Clean.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
 
-/* Hide the browser's default radio button */
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Create a custom radio button */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-  border-radius: 50%;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the radio button is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  background-color: #2196F3;
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the indicator (dot/circle) */
-.container .checkmark:after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
-}
-p
-{
-    font-family:"sans-serif";
-    font-size: 33px;
-}
-textarea {
-  font-family:"sans-serif";
-  font-size: 25px;
-  width: 95%;
-  height: 300px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  resize:none;
-}
-    </style>
-    </head>
-    
-    <body>
-        <div class="bg">
-        <form name="feedback" action="abc" method="POST" enctype="multipart/form-data">
-            <p>How was your overall experience?<br></p>
-            <label class="container">
-            Excellent
-            <input  type="radio" name="1" value="5" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Very Good
-            <input  type="radio" name="1" value="4" />
-            <span class="checkmark"> </span>
-            </label>
-            <label class="container">
-            Good
-            <input  type="radio" name="1" value="3" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Average
-            <input  type="radio" name="1" value="2" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Bad
-            <input  type="radio" name="1" value="1"  />
-            <span class="checkmark"></span>
-            </label>
-            
-            <p>How do you rate the behavior of the event manager?<br></p>
-            <label class="container">
-            Excellent
-            <input  type="radio" name="2" value="5" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Very Good
-            <input  type="radio" name="2" value="4" />
-            <span class="checkmark"> </span>
-            </label>
-            <label class="container">
-            Good
-            <input  type="radio" name="2" value="3" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Average
-            <input  type="radio" name="2" value="2" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Bad
-            <input  type="radio" name="2" value="1"  />
-            <span class="checkmark"></span>
-            </label>
-            
-            <p>How do you rate the food provided by us?<br></p>
-            <label class="container">
-            Excellent
-            <input  type="radio" name="3" value="5" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Very Good
-            <input  type="radio" name="3" value="4" />
-            <span class="checkmark"> </span>
-            </label>
-            <label class="container">
-            Good
-            <input  type="radio" name="3" value="3" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Average
-            <input  type="radio" name="3" value="2" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Bad
-            <input  type="radio" name="3" value="1"  />
-            <span class="checkmark"></span>
-            </label>
-            
-            <p>What do you think about the entertainment(Music,Band,,..)?<br></p>
-            <label class="container">
-            Excellent
-            <input  type="radio" name="4" value="5" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Very Good
-            <input  type="radio" name="4" value="4" />
-            <span class="checkmark"> </span>
-            </label>
-            <label class="container">
-            Good
-            <input  type="radio" name="4" value="3" />
-            <a href="../../../../Google Drive/Software Engg/MainProject/pages/static/feedback/index.html"></a>
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Average
-            <input  type="radio" name="4" value="2" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            Bad
-            <input  type="radio" name="4" value="1"  />
-            <span class="checkmark"></span>
-            </label>
-            
-            <p>Do you prefer to book us for future events?<br></p>
-            <label class="container">
-            Yes
-            <input  type="radio" name="overall" value="5" />
-            <span class="checkmark"></span>
-            </label>
-            <label class="container">
-            No
-            <input  type="radio" name="overall" value="0" />
-            <span class="checkmark"> </span>
-            </label>
-            
-            <p>         Do you have any other comments:<br></p>
-            <div class="wrapper">
-            <textarea name="comments" rows="5" cols="25"></textarea>
-                    
-                        <input type="submit" value="submit" name="submit" /> 
+<body>
+    <div class="contact-clean">
+        <form method="post">
+            <h2 class="text-center">Contact us</h2>
+            <div class="form-group"><input class="form-control pulse animated" type="text" name="name" placeholder="Name"></div>
+            <div class="form-group"><input class="form-control pulse animated is-invalid" type="email" name="email" required="" placeholder="Email" minlength="3" pattern="@"><small class="form-text text-danger">Please enter a correct email address.</small></div>
+            <div class="form-group pulse animated"><label>How was your overall experience?</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-6"><label class="form-check-label" for="formCheck-6">Excellent</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-5"><label class="form-check-label" for="formCheck-5">Very Good</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-4"><label class="form-check-label" for="formCheck-4">Good</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3"><label class="form-check-label" for="formCheck-3">Average</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Bad</label></div>
             </div>
-        </form>
-        </div>
-    </body>
+            <div class="form-group pulse animated"><label>How do you rate the behaviour of the event manager?</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-6"><label class="form-check-label" for="formCheck-6">Excellent</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-5"><label class="form-check-label" for="formCheck-5">Very Good</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-4"><label class="form-check-label" for="formCheck-4">Good</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3"><label class="form-check-label" for="formCheck-3">Average</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Bad</label></div>
+            </div>
+            <div class="form-group" data-aos="fade-up" data-aos-duration="1000"><label>How do you rate the food provided by us?</label>
+                <div class="form-check" data-aos="slide-right" data-aos-duration="200"><input class="form-check-input" type="checkbox" id="formCheck-6"><label class="form-check-label" for="formCheck-6">Excellent</label></div>
+                <div class="form-check" data-aos="slide-right" data-aos-duration="400"><input class="form-check-input" type="checkbox" id="formCheck-5"><label class="form-check-label" for="formCheck-5">Very Good</label></div>
+                <div class="form-check" data-aos="slide-right" data-aos-duration="600"><input class="form-check-input" type="radio" id="formCheck-4"><label class="form-check-label" for="formCheck-4">Good</label></div>
+                <div class="form-check" data-aos="slide-right" data-aos-duration="800"><input class="form-check-input" type="radio" id="formCheck-3"><label class="form-check-label" for="formCheck-3">Average</label></div>
+                <div class="form-check" data-aos="slide-right" data-aos-duration="1000"><input class="form-check-input" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Bad</label></div>
+            </div>
+            <div class="form-group" data-aos="fade-up"><label>How would you rate the music/band?</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-6"><label class="form-check-label" for="formCheck-6">Excellent</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-5"><label class="form-check-label" for="formCheck-5">Very Good</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-4"><label class="form-check-label" for="formCheck-4">Good</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3"><label class="form-check-label" for="formCheck-3">Average</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Bad</label></div>
+            </div>
+            <div class="form-group" data-aos="fade-up" data-aos-duration="1000"><label>Would you prefer to book with us for future events?</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-6"><label class="form-check-label" for="formCheck-6">Excellent</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-5"><label class="form-check-label" for="formCheck-5">Very Good</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-4"><label class="form-check-label" for="formCheck-4">Good</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3"><label class="form-check-label" for="formCheck-3">Average</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Bad</label></div>
+            </div><textarea class="form-control" rows="14" name="message" placeholder="Additional Comments" data-aos="flip-up" data-aos-duration="1600"></textarea><button class="btn btn-primary" type="submit" data-aos="zoom-in-up" data-aos-duration="1000">send </button></form>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-animation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+</body>
+
 </html>
