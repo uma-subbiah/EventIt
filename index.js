@@ -14,34 +14,36 @@ var config = {
 };
 http.createServer(function (req, res) 
 {
+	console.log("LOG: req url :"+req.url);
 	var q = url.parse(req.url, true);
 	var filename = "./pages/static" + q.pathname;
 	if(filename[filename.length-1]=='/')
+	{
 		filename+='index.html';
-	console.log(q.pathname);
+		console.log("LOG: Landing page requested by a client... ");
+	}
 	if(q.pathname=='/ContactUs')
 	{
 		var x=0;
 		res.writeHead(200, {'Content-Type': 'text/html'});
-		console.log("ContactUs\n")
-         {
+		console.log("\nLOG: ContactUs page requested by a client...")
+			console.log("LOG: Attempting DB Connection...")
 			try {
 				// connect to your database
-				console.log("Hi3")
 				sql.connect(config, function (err) {
 				
-					if (err){ console.log(err);console.log("ERROR");}
+					if (err){console.log("!!!LOG: Error in connection to database. "); res.write("There's a DB server connection error. That's all we can say right now. :/"); return;}
 			
 					// create Request object
 					var request = new sql.Request();
-					console.log("Hi2")
+					console.log("LOG: Request object created ...")
 					// query to the database and get the records
 					request.query('select * from contact', function (err, recordset) {
-						console.log("Hi1")
-						if (err) console.log(err)
+						console.log("LOG: Running SQL Query using the request object ...")
+						if (err) console.log("!!!LOG: Error returned by database.")
 			
 						// send records as a response
-						console.log(recordset);
+						console.log("LOG: Query success... : ");
 						var pr='';
 						
 						for(i in recordset['recordset'])
@@ -70,11 +72,10 @@ http.createServer(function (req, res)
 				});
 				
 			} catch (err) {
-				console.log(err);console.log("ERROR");
-			}
-			console.log("End");
-		}
-		console.log("End");
+				console.log("!!!LOG : Error in fetching ContactUs page... : ");
+				console.log(err);
+			}	
+		console.log("LOG: Ending ContactUs request block ... ");
 		return;
 	}
 	else if(q.pathname=='/register')
