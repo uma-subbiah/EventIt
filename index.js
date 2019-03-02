@@ -115,9 +115,14 @@ http.createServer(function (req, res)
 		{
 			if (err) 
 			{
-				console.log(filename)
-				res.writeHead(404, {'Content-Type': 'text/html'});
-				return res.end("404 Not Found!!!!!!!!");
+				console.log(filename+"NOT FOUND!\n")
+				fs.readFile('./pages/static/404/index.html',function (err, data1){
+					var st=data1.toString();
+					res.write(st);
+					console.log(st)
+					res.end();
+				});
+				return;
 			}	 
 			if(filename[filename.length-1]=='/') 
     		{
