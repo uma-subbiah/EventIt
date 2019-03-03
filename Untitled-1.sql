@@ -1,3 +1,0 @@
-sql
-ytryurfjy
-thfhfhjgjh
