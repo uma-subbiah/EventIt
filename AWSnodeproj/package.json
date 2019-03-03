@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "aws-sdk": "^2.413.0",
+    "csv-parser": "^2.2.0",
     "uuid": "^3.3.2"
   },
   "name": "aws-nodejs-sample",

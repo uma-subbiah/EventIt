@@ -1,12 +1,11 @@
 var AWS = require('aws-sdk');
 // Set region
 AWS.config.update({region: 'us-west-2'});
-var args = process.argv.slice(2);
-console.log(args);
+
 // Create publish parameters
 var params = {
-  Message: 'SAMPLE MESSAGE FROM nodeJS with CMDLINE ARGS', /* required */
-  PhoneNumber: args[0]
+  Message: 'SAMPLE MESSAGE FROM nodeJS', /* required */
+  PhoneNumber: '+918667247094'
 };
 
 // Create promise and SNS service object
