@@ -12,6 +12,16 @@ var config = {
         encrypt: true
     }
 };
+function parseCookies (request) {
+    var list = {},
+        rc = request.headers.cookie;
+
+    rc && rc.split(';').forEach(function( cookie ) {
+        var parts = cookie.split('=');
+        list[parts.shift().trim()] = decodeURI(parts.join('='));
+    });
+    return list;
+}
 http.createServer(function(req, res) {
     var q = url.parse(req.url, true);
     var filename = "./pages/static" + q.pathname;
@@ -113,7 +123,36 @@ http.createServer(function(req, res) {
                 });
             });
         });
-    } else {
+    }
+    else if(q.pathname == '/login')
+    {       
+        var cookies=parseCookies(req);
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        if(false&&(cookies['LoggedInCustID']!=null&&cookies['LoggedInCustID']!="-1"))
+        {
+            try 
+            {
+                
+            }
+            catch(err)
+            {
+                    
+            }
+            res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.eventit.com/landing/" /></head>');
+            res.end();
+        }
+        else
+        {
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            fs.readFile('./pages/static/login.html', function(err, data) 
+            {
+                res.write( data.toString());
+                res.end();
+                return;
+            });
+        }
+    } 
+    else {
         fs.readFile(filename, function(err, data) {
             if (err) {
                 console.log(filename)
