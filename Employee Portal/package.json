@@ -50,5 +50,9 @@
     "uglify-es": "^3.3.10"
   },
   "homepage": "https://bitbucket.org/pasqualevitiello/april#readme",
-  "main": ".eslintrc.js"
+  "main": ".eslintrc.js",
+  "dependencies": {
+    "alert-node": "^1.2.3",
+    "window-popup": "^1.1.0"
+  }
 }
