@@ -18,10 +18,11 @@ http.createServer(function(req, res) {
     if (filename[filename.length - 1] == '/')
         filename += 'index.html';
     console.log(q.pathname);
-    if (q.pathname == '/ContactUs') {
+    if (q.pathname == '/ContactUs') 
+    {
         var x = 0;
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        console.log("ContactUs\n") {
+        console.log("ContactUs\n");
             try {
                 // connect to your database
                 console.log("Hi3")
@@ -73,10 +74,11 @@ http.createServer(function(req, res) {
                 console.log("ERROR");
             }
             console.log("End");
-        }
+        
         console.log("End");
         return;
-    } else if (q.pathname == '/register') {
+    } 
+    else if (q.pathname == '/register') {
         //filename+='.html';
         res.writeHead(200, { 'Content-Type': 'text/html' });
         fs.readFile('./pages/static/registration.html', function(err, data) {
