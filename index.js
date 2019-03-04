@@ -128,7 +128,11 @@ function parseCookies(request) {
                 });
             });
         });
-    }
+	}
+	else if(q.pathname == '/login/submit')
+	{
+		
+	}
     else if (q.pathname == '/login') 
     {
         var cookies = parseCookies(req);
