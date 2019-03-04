@@ -40,8 +40,11 @@ http.createServer(function(req, res) {
             // connect to your database
             sql.connect(config, function(err) {
 
-                if (err) { console.log("!!!LOG: Error in connection to database. ");
-                    res.write("There's a DB server connection error. That's all we can say right now. :/"); return; }
+                if (err) {
+                    console.log("!!!LOG: Error in connection to database. ");
+                    res.write("There's a DB server connection error. That's all we can say right now. :/");
+                    return;
+                }
 
                 // create Request object
                 var request = new sql.Request();
@@ -115,7 +118,7 @@ http.createServer(function(req, res) {
                     console.log(result);
                     console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
                     sql.close();
-                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.eventit.com/login" /></head>');
+                    res.write('www.google.com');
                     res.end();
                     return;
                 });
@@ -132,7 +135,7 @@ http.createServer(function(req, res) {
                 request.query("select password from customer where email=mail;", function(err, result) {
 
                     sql.close();
-                    if (result.output == password) {
+                    if (result == password) {
                         res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.google.com" /></head>');
                         res.end();
                         return;
