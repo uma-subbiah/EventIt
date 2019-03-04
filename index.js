@@ -12,11 +12,12 @@ var config = {
         encrypt: true
     }
 };
-function parseCookies (request) {
+
+function parseCookies(request) {
     var list = {},
         rc = request.headers.cookie;
 
-    rc && rc.split(';').forEach(function( cookie ) {
+    rc && rc.split(';').forEach(function(cookie) {
         var parts = cookie.split('=');
         list[parts.shift().trim()] = decodeURI(parts.join('='));
     });
@@ -28,67 +29,65 @@ http.createServer(function(req, res) {
     if (filename[filename.length - 1] == '/')
         filename += 'index.html';
     console.log(q.pathname);
-    if (q.pathname == '/ContactUs') 
-    {
+    if (q.pathname == '/ContactUs') {
         var x = 0;
         res.writeHead(200, { 'Content-Type': 'text/html' });
         console.log("ContactUs\n");
-            try {
-                // connect to your database
-                console.log("Hi3")
-                sql.connect(config, function(err) {
+        try {
+            // connect to your database
+            console.log("Hi3")
+            sql.connect(config, function(err) {
 
-                    if (err) {
-                        console.log(err);
-                        console.log("ERROR");
+                if (err) {
+                    console.log(err);
+                    console.log("ERROR");
+                }
+
+                // create Request object
+                var request = new sql.Request();
+                console.log("Hi2")
+                    // query to the database and get the records
+                request.query('select * from contact', function(err, recordset) {
+                    console.log("Hi1")
+                    if (err) console.log(err)
+
+                    // send records as a response
+                    console.log(recordset);
+                    var pr = '';
+
+                    for (i in recordset['recordset']) {
+                        console.log(recordset['recordset'][i]);
+                        pr += '<div class="col-sm-4">';
+                        pr += '<table class="table">';
+                        pr += '<tr><th>' + recordset['recordset'][i]['position'] + '</th></tr>';
+                        pr += '<tr><td>' + recordset['recordset'][i]['name'] + '</td></tr>';
+                        pr += '<tr><td>' + recordset['recordset'][i]['email'] + '</td></tr>';
+                        pr += '<tr><td>' + recordset['recordset'][i]['phone'] + '</td></tr>';
+                        pr += '<tr><td>' + recordset['recordset'][i]['phone2'] + '</td></tr>';
+                        pr += '</table>';
+                        pr += '</div>';
                     }
-
-                    // create Request object
-                    var request = new sql.Request();
-                    console.log("Hi2")
-                        // query to the database and get the records
-                    request.query('select * from contact', function(err, recordset) {
-                        console.log("Hi1")
-                        if (err) console.log(err)
-
-                        // send records as a response
-                        console.log(recordset);
-                        var pr = '';
-
-                        for (i in recordset['recordset']) {
-                            console.log(recordset['recordset'][i]);
-                            pr += '<div class="col-sm-4">';
-                            pr += '<table class="table">';
-                            pr += '<tr><th>' + recordset['recordset'][i]['position'] + '</th></tr>';
-                            pr += '<tr><td>' + recordset['recordset'][i]['name'] + '</td></tr>';
-                            pr += '<tr><td>' + recordset['recordset'][i]['email'] + '</td></tr>';
-                            pr += '<tr><td>' + recordset['recordset'][i]['phone'] + '</td></tr>';
-                            pr += '<tr><td>' + recordset['recordset'][i]['phone2'] + '</td></tr>';
-                            pr += '</table>';
-                            pr += '</div>';
-                        }
-                        //console.log(pr);
-                        fs.readFile('./pages/static/ContactUs.html', function(err, data) {
-                            var st = data.toString();
-                            console.log(data.toString());
-                            st = st.replace('~1', pr);
-                            res.write(st);
-                            res.end();
-                        });
-                        sql.close();
+                    //console.log(pr);
+                    fs.readFile('./pages/static/ContactUs.html', function(err, data) {
+                        var st = data.toString();
+                        console.log(data.toString());
+                        st = st.replace('~1', pr);
+                        res.write(st);
+                        res.end();
                     });
+                    sql.close();
                 });
+            });
 
-            } catch (err) {
-                console.log(err);
-                console.log("ERROR");
-            }
-            console.log("End");
-        
+        } catch (err) {
+            console.log(err);
+            console.log("ERROR");
+        }
+        console.log("End");
+
         console.log("End");
         return;
-    } 
-    else if (q.pathname == '/register') {
+    } else if (q.pathname == '/register') {
         //filename+='.html';
         res.writeHead(200, { 'Content-Type': 'text/html' });
         fs.readFile('./pages/static/registration.html', function(err, data) {
@@ -118,41 +117,32 @@ http.createServer(function(req, res) {
                     console.log(result);
                     console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
                     sql.close();
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.eventit.com/login" /></head>');
                     res.end();
                     return;
                 });
             });
         });
-    }
-    else if(q.pathname == '/login')
-    {       
-        var cookies=parseCookies(req);
+    } else if (q.pathname == '/login') {
+        var cookies = parseCookies(req);
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        if(false&&(cookies['LoggedInCustID']!=null&&cookies['LoggedInCustID']!="-1"))
-        {
-            try 
-            {
-                
-            }
-            catch(err)
-            {
-                    
+        if (false && (cookies['LoggedInCustID'] != null && cookies['LoggedInCustID'] != "-1")) {
+            try {
+
+            } catch (err) {
+
             }
             res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.eventit.com/landing/" /></head>');
             res.end();
-        }
-        else
-        {
+        } else {
             res.writeHead(200, { 'Content-Type': 'text/html' });
-            fs.readFile('./pages/static/login.html', function(err, data) 
-            {
-                res.write( data.toString());
+            fs.readFile('./pages/static/login.html', function(err, data) {
+                res.write(data.toString());
                 res.end();
                 return;
             });
         }
-    } 
-    else {
+    } else {
         fs.readFile(filename, function(err, data) {
             if (err) {
                 console.log(filename)
