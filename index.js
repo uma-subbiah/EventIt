@@ -102,7 +102,32 @@ function parseCookies(request) {
 			return;
 		});
 	}
-  else if (q.pathname == '/register/submit') {
+  else if (q.pathname == '/review/submit') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            sql.connect(config, function(err) {
+				var request = new sql.Request();
+				request.input('eventID', fields['eventID']);
+                request.input('name', fields['name']);
+                request.input('email', fields['email']);
+                request.input('overallexp', fields['overallexp']);
+                request.input('managerbehaviour', fields['managerbehaviour']);
+                request.input('foodrating', fields['foodrating']);
+                request.input('entertainmentrating', fields['entertainmentrating']);
+				request.input('futurebookingpreference', fields['futurebookingpreference']);
+				request.input('additionalcomments', fields['message']);
+                request.query("insert into review(eventID,overallExp,managerbehaviour,foodrating,entertainmentrating,futurebookingpreference,additionalComments) values(@eventID,@overallexp,@managerbehaviour,@foodrating,@entertainmentrating,@futurebookingpreference,@additionalComments);", function(err, result) {
+                    console.log(result);
+                    //console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
+                    sql.close();
+                    res.write('Check console logs for review status.');
+                    res.end();
+                    return;
+                });
+            });
+        });
+	}
+	else if (q.pathname == '/register/submit') {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
             sql.connect(config, function(err) {
