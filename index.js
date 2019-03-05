@@ -136,7 +136,7 @@ http.createServer(function(req, res) {
 
                     sql.close();
                     if (result['recordset'][0]['password'] == password) {
-                        res.write('<head><meta http-equiv="refresh" content="0; URL=/pages/static/customer_ui/clanding.html" /></head>');
+                        res.write('<head><meta http-equiv="refresh" content="0; URL=/customer_ui/clanding.html" /></head>');
                         res.end();
                         return;
                     }
