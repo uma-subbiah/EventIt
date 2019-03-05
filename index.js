@@ -3,6 +3,7 @@ var url = require('url');
 var fs = require('fs');
 var sql = require('mssql');
 var formidable = require('formidable');
+var awsservices = require('./AWSnodeproj/sns_publishsms')
 var config = {
     user: 'abhilash.venky',
     password: 'Ninju123',
@@ -96,7 +97,7 @@ function parseCookies(request) {
 		res.writeHead(200, {'Content-Type': 'text/html'});
 		fs.readFile('./pages/static/registration.html', function(err, data){
 			var st=data.toString();
-			console.log(data.toString());
+			//console.log(data.toString());
 			res.write(st);
 			res.end();
 			return;
@@ -144,15 +145,27 @@ function parseCookies(request) {
                 request.input('gender', fields['gender']);
                 request.input('dob', fields['dob']);
                 request.query("insert into customer(fname,lname,mobile,email,paddr,oaddr,telephone,username,password,gender,dob) values(@fname,@lname,@mobile,@email,@paddr,@oaddr,@telephone,@username,@password,@gender,@dob);", function(err, result) {
-                    console.log(result);
-                    console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
+					if(err) throw err;
+					console.log("LOG: REG SUCCESSFUL!");
+                    //console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
                     sql.close();
-                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.eventit.com/login" /></head>');
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://localhost/regsuccess" /></head>');
                     res.end();
-                    return;
-                });
+				});
+				var sendText = "Dear " + fields['fname'] + ", you have been successfully registered on EventIt.com! Please feel free to log in anytime at http://eventit.com/login";
+				awsservices.sendSMS(sendText, fields['mobile']);
             });
         });
+	}
+	else if (q.pathname == '/regsuccess') 
+    {
+        fs.readFile('./pages/static/RegSuccess/index.html', function(err, data) 
+		{
+			if(err) throw err;
+			var st=data.toString();
+			res.write(st);
+			res.end();
+		});
     }
     else if (q.pathname == '/login') 
     {
@@ -183,7 +196,6 @@ function parseCookies(request) {
 				fs.readFile('./pages/static/404/index.html',function (err, data1){
 					var st=data1.toString();
 					res.write(st);
-					console.log(st)
 					res.end();
 				});
 				return;
