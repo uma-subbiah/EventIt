@@ -103,6 +103,7 @@ http.createServer(function(req, res) {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
             sql.connect(config, function(err) {
+                if(err) throw err;
                 var request = new sql.Request();
                 request.input('fname', fields['fname']);
                 request.input('lname', fields['lname']);
@@ -145,7 +146,6 @@ http.createServer(function(req, res) {
                         res.end();
                         return;
                     }
-
                 });
             });
         });
