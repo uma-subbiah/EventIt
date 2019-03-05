@@ -118,7 +118,7 @@ http.createServer(function(req, res) {
                     console.log(result);
                     console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
                     sql.close();
-                    res.write('www.google.com');
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.eventit.com/pages/static/login.html" /></head>');
                     res.end();
                     return;
                 });
@@ -136,7 +136,7 @@ http.createServer(function(req, res) {
 
                     sql.close();
                     if (result['recordset'][0]['password'] == password) {
-                        res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.google.com" /></head>');
+                        res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.eventit.com/pages/static/customer_ui/clanding.html" /></head>');
                         res.end();
                         return;
                     }
