@@ -42,7 +42,7 @@ http.createServer(function (req, res)
 				request.input('service',fields['service']);
 				request.input('city',fields['city']);
 				console.log('${req.body.cname}');
-				request.query("insert into test_caterer2(name,contact_person,mobile,email,oaddress,phone,service,city) values(@cname,@lname,@mobile,@email,@oaddress,@phone,@service,@city);",function(err, result){
+				request.query("insert into service_provider(name,contact_person,mobile,email,oaddress,phone,service,city) values(@cname,@lname,@mobile,@email,@oaddress,@phone,@service,@city);",function(err, result){
 					console.log(result);
 					console.log(fields['cname']+"\n"+err);
 					sql.close();
