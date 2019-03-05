@@ -135,7 +135,7 @@ http.createServer(function(req, res) {
                 request.query("select password from customer where email=mail;", function(err, result) {
 
                     sql.close();
-                    if (result == password) {
+                    if (result['recordset'][0]['password'] == password) {
                         res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.google.com" /></head>');
                         res.end();
                         return;
