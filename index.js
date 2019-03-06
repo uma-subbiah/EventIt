@@ -59,6 +59,7 @@ http.createServer(function(req, res) {
                     var pr = '';
 
                     for (i in recordset['recordset']) {
+                        console.log("i :"+i);
                         console.log(recordset['recordset'][i]);
                         pr += '<div class="col-sm-4">';
                         pr += '<table class="table">';
@@ -102,6 +103,7 @@ http.createServer(function(req, res) {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
             sql.connect(config, function(err) {
+                if(err) throw err;
                 var request = new sql.Request();
                 request.input('fname', fields['fname']);
                 request.input('lname', fields['lname']);
@@ -130,17 +132,20 @@ http.createServer(function(req, res) {
             sql.connect(config, function(err) {
                 var request = new sql.Request();
                 request.input('mail', fields['email']);
-                request.input('password', fields['password']);
-
-                request.query("select password from customer where email=mail;", function(err, result) {
-
+                console.log("LOG: email : "+fields['email']);
+                request.query("select password from customer where email=@mail;", function(err, result) {
+                    //console.log("LOG : Login query result : "+result);
+                    //console.log("LOG : Login query result : "+result["recordsets"][0][0].password);
+                    if(err){
+                        console.log("!!!LOG: Error in query retrieval... : "+err);
+                        return;
+                    }
                     sql.close();
-                    if (result['recordset'][0]['password'] == password) {
+                    if (result["recordset"][0]["password"] == fields['password']) {
                         res.write('<head><meta http-equiv="refresh" content="0; URL=/customer_ui/clanding.html" /></head>');
                         res.end();
                         return;
                     }
-
                 });
             });
         });
@@ -166,7 +171,7 @@ http.createServer(function(req, res) {
                 fs.readFile('./pages/static/404/index.html', function(err, data1) {
                     var st = data1.toString();
                     res.write(st);
-                    console.log(st)
+                    //console.log(st)
                     res.end();
                 });
                 return;
