@@ -26,7 +26,7 @@ function parseCookies(request) {
 }
   http.createServer(function (req, res) 
 {
-	console.log("LOG: req url :"+req.url);
+	//console.log("LOG: req url :"+req.url);
 	var q = url.parse(req.url, true);
 	var filename = "./pages/static" + q.pathname;
 	if(filename[filename.length-1]=='/')
@@ -107,21 +107,28 @@ function parseCookies(request) {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
             sql.connect(config, function(err) {
-				var request = new sql.Request();
-				request.input('eventID', fields['eventID']);
+                var request = new sql.Request();
+				request.input('eventID', parseInt(fields['eventID']));
                 request.input('name', fields['name']);
                 request.input('email', fields['email']);
-                request.input('overallexp', fields['overallexp']);
-                request.input('managerbehaviour', fields['managerbehaviour']);
-                request.input('foodrating', fields['foodrating']);
-                request.input('entertainmentrating', fields['entertainmentrating']);
-				request.input('futurebookingpreference', fields['futurebookingpreference']);
+                request.input('overallexp', parseInt(fields['overallexp']));
+                request.input('managerbehaviour', parseInt(fields['managerbehaviour']));
+                request.input('foodrating', parseInt(fields['foodrating']));
+                request.input('entertainmentrating', parseInt(fields['entertainmentrating']));
+				request.input('futurebookingpreference', parseInt(fields['futurebookingpreference']));
 				request.input('additionalcomments', fields['message']);
                 request.query("insert into review(eventID,overallExp,managerbehaviour,foodrating,entertainmentrating,futurebookingpreference,additionalComments) values(@eventID,@overallexp,@managerbehaviour,@foodrating,@entertainmentrating,@futurebookingpreference,@additionalComments);", function(err, result) {
-                    console.log(result);
+                    console.log('LOG : futurebookingpref .. :'+fields['futurebookingpreference']);
+                    if(err)
+                    {
+                        console.log(err.toString());
+                        res.end();
+                        return;
+                    }
+                    console.log("LOG: query result"+result);
                     //console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
                     sql.close();
-                    res.write('Check console logs for review status.');
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://localhost:8080/reviewsuccess" /></head>');
                     res.end();
                     return;
                 });
@@ -195,6 +202,20 @@ function parseCookies(request) {
 			res.end();
 		});
     }
+    else if (q.pathname == '/reviewsuccess') 
+    {
+        console.log('LOG: review/success detected');
+        fs.readFile('./pages/static/RegSuccess/index.html', function(err, data) 
+		{
+			if(err) throw err;
+            var st=data.toString();
+            st=st.replace('Successfully Registered!','Thanks for submitting the review!');
+            st=st.replace('Your account has been registered! Check your phone for confirmation.','Your review has been recorded. Thanks.We\'ll improve from it (hopefully, that is).')
+            st=st.replace('Registration Success!','Review Submitted!')
+            res.write(st);
+			res.end();
+		});
+    }
     else if (q.pathname == '/login') 
     {
         var cookies = parseCookies(req);
@@ -212,7 +233,7 @@ function parseCookies(request) {
             });
         }
     } else if (q.pathname == '/customer_ui/askevent/submit') {
-        console.log("Hi");
+        console.log("LOG: Event ask detected ...");
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
             if (err) {
