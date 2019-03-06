@@ -165,16 +165,17 @@ http.createServer(function(req, res) {
             });
         }
     } else if (q.pathname == '/customer_ui/askevent/submit') {
-        /*var form = new formidable.IncomingForm();
+        console.log("Hi");
+        var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
             if (err) {
-                console.log("!!!LOG: Error in query retrieval... : " + err.toString());
+                console.log("!!!LOG: Error in parsing form... : " + err.toString());
                 return;
             }
             sql.connect(config, function(err) {
 
                 if (err) {
-                    console.log("!!!LOG: Error in query retrieval... : " + err.toString());
+                    console.log("!!!LOG: Error in connection... : " + err.toString());
                     return;
                 }
                 var request = new sql.Request();
@@ -183,20 +184,20 @@ http.createServer(function(req, res) {
                 request.input('budget', fields['budget']);
                 request.input('category', fields['event']);
                 request.input('location', fields['location']);
-                request.query("insert into event(Category,eventLocation,budget,email) values(@category,@location,@budget,@email);", function(err, result) {
+                request.query("insert into event(Category,eventLocation,budget,email) values(@category,@location,@budget,@email)", function(err, result) {
                     if (err) {
                         console.log("!!!LOG: Error in query retrieval... : " + err.toString());
-                        return;
+                        //return;
                     }
                     console.log(result);
-                    console.log(fields['budget'] + " " + fields['event'] + "\n" + err);
+                    console.log(fields['budget'] + " " + fields['event']+ " " + fields['email']+ " " + fields['location'] + "\n" + err);
                     sql.close();
                     res.end();
                     return;
                 });
             });
-        });*/
-        return res.end();
+        });
+        res.end();
     } else {
         fs.readFile(filename, function(err, data) {
             if (err) {
