@@ -59,7 +59,7 @@ http.createServer(function(req, res) {
                     var pr = '';
 
                     for (i in recordset['recordset']) {
-                        console.log("i :"+i);
+                        console.log("i :" + i);
                         console.log(recordset['recordset'][i]);
                         pr += '<div class="col-sm-4">';
                         pr += '<table class="table">';
@@ -103,7 +103,7 @@ http.createServer(function(req, res) {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
             sql.connect(config, function(err) {
-                if(err) throw err;
+                if (err) throw err;
                 var request = new sql.Request();
                 request.input('fname', fields['fname']);
                 request.input('lname', fields['lname']);
@@ -120,7 +120,7 @@ http.createServer(function(req, res) {
                     console.log(result);
                     console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
                     sql.close();
-                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.eventit.com/pages/static/login.html" /></head>');
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=/login.html" /></head>');
                     res.end();
                     return;
                 });
@@ -132,12 +132,12 @@ http.createServer(function(req, res) {
             sql.connect(config, function(err) {
                 var request = new sql.Request();
                 request.input('mail', fields['email']);
-                console.log("LOG: email : "+fields['email']);
+                console.log("LOG: email : " + fields['email']);
                 request.query("select password from customer where email=@mail;", function(err, result) {
                     //console.log("LOG : Login query result : "+result);
                     //console.log("LOG : Login query result : "+result["recordsets"][0][0].password);
-                    if(err){
-                        console.log("!!!LOG: Error in query retrieval... : "+err);
+                    if (err) {
+                        console.log("!!!LOG: Error in query retrieval... : " + err);
                         return;
                     }
                     sql.close();
@@ -164,6 +164,39 @@ http.createServer(function(req, res) {
                 return;
             });
         }
+    } else if (q.pathname == '/customer_ui/askevent/submit') {
+        /*var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            if (err) {
+                console.log("!!!LOG: Error in query retrieval... : " + err.toString());
+                return;
+            }
+            sql.connect(config, function(err) {
+
+                if (err) {
+                    console.log("!!!LOG: Error in query retrieval... : " + err.toString());
+                    return;
+                }
+                var request = new sql.Request();
+                request.input('mobile', fields['mobile']);
+                request.input('email', fields['email']);
+                request.input('budget', fields['budget']);
+                request.input('category', fields['event']);
+                request.input('location', fields['location']);
+                request.query("insert into event(Category,eventLocation,budget,email) values(@category,@location,@budget,@email);", function(err, result) {
+                    if (err) {
+                        console.log("!!!LOG: Error in query retrieval... : " + err.toString());
+                        return;
+                    }
+                    console.log(result);
+                    console.log(fields['budget'] + " " + fields['event'] + "\n" + err);
+                    sql.close();
+                    res.end();
+                    return;
+                });
+            });
+        });*/
+        return res.end();
     } else {
         fs.readFile(filename, function(err, data) {
             if (err) {
@@ -183,4 +216,4 @@ http.createServer(function(req, res) {
             return res.end();
         });
     }
-}).listen(80);
+}).listen(8080);
