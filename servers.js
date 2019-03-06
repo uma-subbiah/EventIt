@@ -1,4 +1,4 @@
-var alert = require('alert-node');
+//var alert = require('alert-node');
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
@@ -25,12 +25,15 @@ http.createServer(function (req, res)
 	
 	if(q.pathname=='/submit')
 	{
+		var form = new formidable.IncomingForm();
+		form.parse(req,function(err,fields,files) 
+		{
 		var x=0;
 		res.writeHead(200, {'Content-Type': 'text/html'});
 			console.log("LOG: Attempting DB Connection...")
 			try {
 				// connect to your database
-				sql.connect(config, function (err) {
+					sql.connect(config, function (err) {
 				
 					if (err){console.log("!!!LOG: Error in connection to database. "+err); res.write("There's a DB server connection error. That's all we can say right now. :/"); return;}
 			
@@ -39,7 +42,7 @@ http.createServer(function (req, res)
 					console.log("LOG: Request object created ...")
 					// query to the database and get the records
 					request.input('Place',fields['Place']);
-                request.input('Categories',fields['Categories']);
+	                request.input('Categories',fields['Categories']);
 					request.query("select * from Sponsors where city=@Place and category=@Categories;", function (err, recordset) {
 						console.log("LOG: Running SQL Query using the request objegh   ct ...")
 						if (err) console.log("!!!LOG: Error returned by database."+err.toString()+err);
@@ -80,7 +83,8 @@ http.createServer(function (req, res)
 				console.log("!!!LOG : Error in fetching page... : ");
 				console.log(err);
 			}	
-		return;}
+		});
+	}
 	else	
 	{   
 		fs.readFile(filename, function(err, data) 
