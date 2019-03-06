@@ -3,6 +3,7 @@ var url = require('url');
 var fs = require('fs');
 var sql = require('mssql');
 var formidable = require('formidable');
+var utils=require('./utilities.js')
 var awsservices = require('./AWSnodeproj/sns_publishsms')
 var config = {
     user: 'abhilash.venky',
