@@ -209,7 +209,8 @@ function parseCookies(request) {
                     res.end();
 				});
 				var sendText = "Dear " + fields['fname'] + ", you have been successfully registered on EventIt.com! Please feel free to log in anytime at http://eventit.com/login";
-				awsservices.sendSMS(sendText, fields['mobile']);
+                awsservices.sendSMS(sendText, fields['mobile']);
+                utils.MailSend(fields['email'],sendText);
             });
         });
 	}
