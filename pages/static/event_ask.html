@@ -30,9 +30,11 @@
     }
     
     input[type=text],
+    input[type=number],
     input[type=password],
     input[type=tel],
-    input[type=radio] {
+    input[type=radio],
+    select {
         width: 100%;
         padding: 15px;
         margin: 5px 0 22px 0;
@@ -43,8 +45,10 @@
     /* Add a background color when the inputs get focus */
     
     input[type=text]:focus,
+    input[type=number]:focus,
     input[type=password]:focus,
-    input[type=tel]:focus {
+    input[type=tel]:focus,
+    select:focus {
         background-color: #ddd;
         outline: none;
     }
@@ -120,7 +124,7 @@
     }
     /* Set a style for all buttons */
     
-    button {
+    input[type=submit] {
         background-color: #4CAF50;
         color: white;
         padding: 14px 20px;
@@ -131,7 +135,7 @@
         opacity: 0.9;
     }
     
-    button:hover {
+    input[type=submit]:hover {
         opacity: 1;
     }
     /* Extra styles for the cancel button */
@@ -292,7 +296,7 @@
 
 
 
-                <form class="modal-content" action="file:///K:/Sublime%20Text%203/proj/driversignup.html" method="post">
+                <form class="modal-content" action="" method="get">
 
 
 
@@ -303,17 +307,6 @@
                         <p>Please fill in this form to request for your event.</p>
 
                         <hr>
-
-                        <label for="fname"><b>First Name</b></label>
-
-                        <input type="text" placeholder="Enter First name" name="fname" required><br>
-
-
-
-                        <label for="lname"><b>Last name</b></label>
-
-                        <input type="text" placeholder="Enter Last name" name="lname" required><br>
-
 
 
                         <label for="mobile"><b>Mobile Number</b></label>
@@ -337,34 +330,31 @@
 
 
 
-                        <fieldset class="checkboxgroup">
+                        <fieldset class="option">
 
                             <p>Event category</p>
 
-                            <label><input type="checkbox" name="check" value="birthday">Birthday</label>
+                            <select name="event">
+                                <option value="birthday">Birthday</option>
+                                <option value="workshop">Workshop</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="concert">Concert</option>
+                                <option value="reunion">Reunion</option>
+                              </select>
 
-                            <label><input type="checkbox" name="check" value="wedding"> Wedding</label>
 
-                            <label><input type="checkbox" name="check" value="workshop"> Workshop</label>
 
-                            <label><input type="checkbox" name="check" value="concert"> Concert</label>
 
-                            <label><input type="checkbox" name="check" value="reunion"> Reunion</label
 
-    
+                            <p>Event location</p>
 
-     </fieldset>
-
-    <fieldset class="checkboxgroup">
-
-    <p>Event location</p>
-
-    <label><input type="checkbox" name="check" value="bangalore">Bangalore</label>
-
-                            <label><input type="checkbox" name="check" value="chennai"> Chennai</label>
-
-                            <label><input type="checkbox" name="check" value="delhi"> Delhi</label>
-
+                            <select name="location">
+                                <option value="bangalore">Bangalore</option>
+                                <option value="chennai">Chennai</option>
+                                <option value="delhi">Delhi</option>
+                                <option value="mumbai">Mumbai</option>
+                                
+                              </select>
 
                         </fieldset>
 
@@ -376,7 +366,7 @@
 
 
 
-                        <p><button class="button">Submit</button></p>
+                        <p><input type="submit" class="button" value="submit" name="submit" /></p>
 
                     </div>
 
