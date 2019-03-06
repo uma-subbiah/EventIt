@@ -132,6 +132,7 @@ function parseCookies(request) {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
             sql.connect(config, function(err) {
+                if (err) throw err;
                 var request = new sql.Request();
                 request.input('fname', fields['fname']);
                 request.input('lname', fields['lname']);
@@ -149,7 +150,10 @@ function parseCookies(request) {
 					console.log("LOG: REG SUCCESSFUL!");
                     //console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
                     sql.close();
+
+
                     res.write('<head><meta http-equiv="refresh" content="0; URL=http://localhost/regsuccess" /></head>');
+
                     res.end();
 				});
 				var sendText = "Dear " + fields['fname'] + ", you have been successfully registered on EventIt.com! Please feel free to log in anytime at http://eventit.com/login";
@@ -157,6 +161,30 @@ function parseCookies(request) {
             });
         });
 	}
+  else if (q.pathname == '/login/submit') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            sql.connect(config, function(err) {
+                var request = new sql.Request();
+                request.input('mail', fields['email']);
+                console.log("LOG: email : " + fields['email']);
+                request.query("select password from customer where email=@mail;", function(err, result) {
+                    //console.log("LOG : Login query result : "+result);
+                    //console.log("LOG : Login query result : "+result["recordsets"][0][0].password);
+                    if (err) {
+                        console.log("!!!LOG: Error in query retrieval... : " + err);
+                        return;
+                    }
+                    sql.close();
+                    if (result["recordset"][0]["password"] == fields['password']) {
+                        res.write('<head><meta http-equiv="refresh" content="0; URL=/customer_ui/clanding.html" /></head>');
+                        res.end();
+                        return;
+                    }
+                });
+            });
+        });
+    }
 	else if (q.pathname == '/regsuccess') 
     {
         fs.readFile('./pages/static/RegSuccess/index.html', function(err, data) 
@@ -171,13 +199,11 @@ function parseCookies(request) {
     {
         var cookies = parseCookies(req);
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        if (false && (cookies['LoggedInCustID'] != null && cookies['LoggedInCustID'] != "-1")) 
-        {
-            
+        if (false && (cookies['LoggedInCustID'] != null && cookies['LoggedInCustID'] != "-1")) {
+
             res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.eventit.com/landing/" /></head>');
             res.end();
-        }
-        else{
+        } else {
             res.writeHead(200, { 'Content-Type': 'text/html' });
             fs.readFile('./pages/static/login.html', function(err, data) {
                 res.write(data.toString());
@@ -185,7 +211,41 @@ function parseCookies(request) {
                 return;
             });
         }
-    }
+    } else if (q.pathname == '/customer_ui/askevent/submit') {
+        console.log("Hi");
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            if (err) {
+                console.log("!!!LOG: Error in parsing form... : " + err.toString());
+                return;
+            }
+            sql.connect(config, function(err) {
+
+                if (err) {
+                    console.log("!!!LOG: Error in connection... : " + err.toString());
+                    return;
+                }
+                var request = new sql.Request();
+                request.input('mobile', fields['mobile']);
+                request.input('email', fields['email']);
+                request.input('budget', fields['budget']);
+                request.input('category', fields['event']);
+                request.input('location', fields['location']);
+                request.query("insert into event(Category,eventLocation,budget,email) values(@category,@location,@budget,@email)", function(err, result) {
+                    if (err) {
+                        console.log("!!!LOG: Error in query retrieval... : " + err.toString());
+                        //return;
+                    }
+                    console.log(result);
+                    console.log(fields['budget'] + " " + fields['event']+ " " + fields['email']+ " " + fields['location'] + "\n" + err);
+                    sql.close();
+                    res.end();
+                    return;
+                });
+            });
+        });
+        res.end();
+    } 
 	    else	
 	    {
 		fs.readFile(filename, function(err, data) 
