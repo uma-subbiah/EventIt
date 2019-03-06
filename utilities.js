@@ -33,3 +33,6 @@ exports.MailSend=function(recipient,message)
         return;
     });
 }
+exports.SendSMS=function(recipient,message){
+
+}
