@@ -33,8 +33,52 @@ function parseCookies(request) {
 	{
 		filename+='index.html';
 		console.log("LOG: Landing page requested by a client... ");
-	}
-	if(q.pathname=='/ContactUs')
+    }
+    if(q.pathname=='/AdminLanding')
+    {
+        try {
+            // connect to your database
+            sql.connect(config, function (err) {
+                if (err){console.log("!!!LOG: Error in connection to database. "); res.write("There's a DB server connection error. That's all we can say right now. :/"); return;}
+                // create Request object
+                var request = new sql.Request();
+                console.log("LOG: Request object created ...")
+                // query to the database and get the records
+                request.query('select * from rev_sum', function (err, recordset) {
+                    console.log("LOG: Running SQL Query using the request object ...")
+                    if (err)
+                    { 
+                        console.log("!!!LOG: Error returned by database.")
+                        return res.end();
+                    }
+                    // send records as a response
+                    console.log("LOG: Query success... : ");
+                    var pr='';
+                    var y=recordset['recordset'];
+                    var z=[[y[4]['1'],y[3]['1'],y[2]['1'],y[1]['1'],y[0]['1']],[y[4]['2'],y[3]['2'],y[2]['2'],y[1]['2'],y[0]['2']],[y[4]['3'],y[3]['3'],y[2]['3'],y[1]['3'],y[0]['3']],[y[4]['4'],y[3]['4'],y[2]['4'],y[1]['4'],y[0]['4']],[y[4]['5'],y[3]['5'],y[2]['5'],y[1]['5'],y[0]['5']]];
+                    pr=require('JSON').stringify(z);
+                    console.log("LOG : "+pr);
+                    fs.readFile('./pages/static/ChartFeedback/index.html', function(err, data){
+                        var st=data.toString();
+                       // console.log(data.toString());
+                        st=st.replace('~1',pr);
+                        console.log(st);
+                        res.write(st);
+                        res.end();
+                        sql.close();
+                        return;
+                       
+                    });
+                    
+                });
+            });
+            
+        } catch (err) {
+            console.log("!!!LOG : Error in fetching ContactUs page... : ");
+            console.log(err);
+        }
+    }
+	else if(q.pathname=='/ContactUs')
 	{
 		var x=0;
 		res.writeHead(200, {'Content-Type': 'text/html'});
