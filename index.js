@@ -204,7 +204,7 @@ function parseCookies(request) {
                     sql.close();
 
 
-                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://localhost/regsuccess" /></head>');
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://localhost:8080/regsuccess" /></head>');
 
                     res.end();
 				});
