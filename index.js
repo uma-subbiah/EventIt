@@ -25,7 +25,7 @@ function parseCookies(request) {
     });
     return list;
 }
-  http.createServer(function (req, res) 
+  http.createServer(function (req, res)
 {
 	//console.log("LOG: req url :"+req.url);
 	var q = url.parse(req.url, true);
@@ -48,7 +48,7 @@ function parseCookies(request) {
                 request.query('select * from rev_sum', function (err, recordset) {
                     console.log("LOG: Running SQL Query using the request object ...")
                     if (err)
-                    { 
+                    {
                         console.log("!!!LOG: Error returned by database.")
                         return res.end();
                     }
@@ -68,12 +68,12 @@ function parseCookies(request) {
                         res.end();
                         sql.close();
                         return;
-                       
+
                     });
-                    
+
                 });
             });
-            
+
         } catch (err) {
             console.log("!!!LOG : Error in fetching ContactUs page... : ");
             console.log(err);
@@ -88,9 +88,9 @@ function parseCookies(request) {
 			try {
 				// connect to your database
 				sql.connect(config, function (err) {
-				
+
 					if (err){console.log("!!!LOG: Error in connection to database. "); res.write("There's a DB server connection error. That's all we can say right now. :/"); return;}
-			
+
 					// create Request object
 					var request = new sql.Request();
 					console.log("LOG: Request object created ...")
@@ -98,11 +98,11 @@ function parseCookies(request) {
 					request.query('select * from contact', function (err, recordset) {
 						console.log("LOG: Running SQL Query using the request object ...")
 						if (err) console.log("!!!LOG: Error returned by database.")
-			
+
 						// send records as a response
 						console.log("LOG: Query success... : ");
 						var pr='';
-						
+
 						for(i in recordset['recordset'])
 						{
 							console.log(recordset['recordset'][i]);
@@ -127,15 +127,15 @@ function parseCookies(request) {
 						sql.close();
 					});
 				});
-				
+
 			} catch (err) {
 				console.log("!!!LOG : Error in fetching ContactUs page... : ");
 				console.log(err);
-			}	
+			}
 		console.log("LOG: Ending ContactUs request block ... ");
 		return;
 	}
-    
+
 	else if(q.pathname=='/register')
 	{
 		//filename+='.html';
@@ -238,9 +238,9 @@ function parseCookies(request) {
             });
         });
     }
-	else if (q.pathname == '/regsuccess') 
+	else if (q.pathname == '/regsuccess')
     {
-        fs.readFile('./pages/static/RegSuccess/index.html', function(err, data) 
+        fs.readFile('./pages/static/RegSuccess/index.html', function(err, data)
 		{
 			if(err) throw err;
 			var st=data.toString();
@@ -248,10 +248,10 @@ function parseCookies(request) {
 			res.end();
 		});
     }
-    else if (q.pathname == '/reviewsuccess') 
+    else if (q.pathname == '/reviewsuccess')
     {
         console.log('LOG: review/success detected');
-        fs.readFile('./pages/static/RegSuccess/index.html', function(err, data) 
+        fs.readFile('./pages/static/RegSuccess/index.html', function(err, data)
 		{
 			if(err) throw err;
             var st=data.toString();
@@ -262,7 +262,7 @@ function parseCookies(request) {
 			res.end();
 		});
     }
-    else if (q.pathname == '/login') 
+    else if (q.pathname == '/login')
     {
         var cookies = parseCookies(req);
         res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -318,12 +318,12 @@ function parseCookies(request) {
             });
         });
         res.end();
-    } 
-	    else	
+    }
+	    else
 	    {
-		fs.readFile(filename, function(err, data) 
+		fs.readFile(filename, function(err, data)
 		{
-			if (err) 
+			if (err)
 			{
 				console.log(filename+"NOT FOUND!\n")
 				fs.readFile('./pages/static/404/index.html',function (err, data1){
@@ -332,8 +332,8 @@ function parseCookies(request) {
 					res.end();
 				});
 				return;
-			}	 
-			if(filename[filename.length-1]=='/') 
+			}
+			if(filename[filename.length-1]=='/')
     		{
 				res.writeHead(200, {'Content-Type': 'text/html'});
 			}
