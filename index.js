@@ -307,6 +307,10 @@ function parseCookies(request) {
                     console.log(fields['budget'] + " " + fields['event']+ " " + fields['email']+ " " + fields['location'] + "\n" + err);
                     sql.close();
                     res.end();
+                    var sendText = "Greetings from EventIt! Your event is under process! Please feel free to track your event at http://eventit.com/login";
+                    awsservices.sendSMS(sendText, fields['mobile']);
+                    utils.MailSend(fields['email'],sendText);
+             
                     return;
                 });
             });
