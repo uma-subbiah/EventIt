@@ -204,7 +204,7 @@ function parseCookies(request) {
                     sql.close();
 
 
-                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://localhost/regsuccess" /></head>');
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://localhost:8080/regsuccess" /></head>');
 
                     res.end();
 				});
@@ -307,6 +307,12 @@ function parseCookies(request) {
                     console.log(fields['budget'] + " " + fields['event']+ " " + fields['email']+ " " + fields['location'] + "\n" + err);
                     sql.close();
                     res.end();
+                    var sendText = "Greetings from EventIt! Your event is under process! Please feel free to track your event at http://eventit.com/login";
+                    try{
+                        awsservices.sendSMS(sendText, fields['mobile']);
+                    } catch(err){console.log("AWS error.close.close.Abhilash's fault")};
+                    utils.MailSend(fields['email'],sendText);
+             
                     return;
                 });
             });
