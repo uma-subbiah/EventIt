@@ -6,6 +6,9 @@ module.exports = {
   //var args = process.argv.slice(2);
   //console.log(args);
   // Create publish parameters
+  if(number[0]!='+'){
+    number = '+91'+number;
+  }
   var params = {
     Message: message, /* required */
     PhoneNumber: number
