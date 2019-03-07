@@ -1,7 +1,6 @@
-//Function for Sending mail
-exports.MailSend=function(recipient,message)
-{
-    var nodemailer=require('nodemailer');
+var utils=require('./utilities.js');
+utils.MailSend('niranjankumar26081998@gmail.com',"Hello");
+/*var nodemailer=require('nodemailer');
     var transporter = nodemailer.createTransport
     (
         {
@@ -16,9 +15,9 @@ exports.MailSend=function(recipient,message)
     var mailOptions = 
     {
         from: 'ninju26@gmail.com',
-        to: ''+recipient+'',
-        subject: 'Event It Mail Update',
-        text:''+message+'\nWith Regards,\nTeam EventIt.'
+        to: 'niranjankumar26081998@gmail.com',
+        subject: 'Sending Email using Node.js',
+        text:'\nWith Regards,\nTeam EventIt.'
     };
     transporter.sendMail(mailOptions, function(error, info)
     {
@@ -31,8 +30,4 @@ exports.MailSend=function(recipient,message)
             console.log('Email sent: ' + info.response);
         }
         return;
-    });
-}
-exports.SendSMS=function(recipient,message){
-
-}
+    });*/
