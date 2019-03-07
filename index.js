@@ -308,7 +308,9 @@ function parseCookies(request) {
                     sql.close();
                     res.end();
                     var sendText = "Greetings from EventIt! Your event is under process! Please feel free to track your event at http://eventit.com/login";
-                    awsservices.sendSMS(sendText, fields['mobile']);
+                    try{
+                        awsservices.sendSMS(sendText, fields['mobile']);
+                    } catch(err){console.log("AWS error.close.close.Abhilash's fault")};
                     utils.MailSend(fields['email'],sendText);
              
                     return;
