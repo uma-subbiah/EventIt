@@ -42,7 +42,7 @@ http.createServer(function (req, res)
 				request.input('service',fields['service']);
 				request.input('city',fields['city']);
 				console.log('${req.body.cname}');
-				request.query("insert into service_provider(name,contact_person,mobile,email,oaddress,phone,service,city) values(@cname,@lname,@mobile,@email,@oaddress,@phone,@service,@city);",function(err, result){
+				request.query("insert into test_caterer2(name,contact_person,mobile,email,oaddress,phone,service,city) values(@cname,@lname,@mobile,@email,@oaddress,@phone,@service,@city);",function(err, result){
 					console.log(result);
 					console.log(fields['cname']+"\n"+err);
 					sql.close();
@@ -52,22 +52,7 @@ http.createServer(function (req, res)
 				});
 			});
 		});
-		var redirect = './pages/static/entered.html';
-		fs.readFile(redirect, function(err, data) 
-		{
-			if (err) 
-			{
-				console.log(filename)
-				res.writeHead(404, {'Content-Type': 'text/html'});
-				return res.end("404 Not Found!!!!!!!!");
-			}	 
-			else
-    		{
-				res.writeHead(200, {'Content-Type': 'text/html'});
-			}
-    		res.write(data);
-    		return res.end();
-  		});
+		
 	}
 	else	
 	{
@@ -87,4 +72,8 @@ http.createServer(function (req, res)
     		return res.end();
   		});
 	}
-}).listen(8080);
+	res.writeHead(301,
+		{ Location: 'http://localhost:3000/employee_landing_page.html'  }
+	  );
+	  res.end();
+}).listen(8088);

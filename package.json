@@ -9,14 +9,12 @@
   "author": "Abilash V,Akshaya S,Uma S,Niranjan Kumar K S",
   "license": "ISC",
   "dependencies": {
-    "JSON": "^1.0.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "formidable": "^1.2.1",
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "mssql": "^4.3.1",
-    "nodemailer": "^5.1.1",
     "url": "^0.11.0"
   }
 }
