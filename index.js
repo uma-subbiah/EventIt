@@ -186,6 +186,46 @@ function parseCookies(request) {
                 return;
             });
         }
+    } else if (q.pathname == '/customer_ui/askevent/submit') {
+        console.log("LOG: Event ask detected ...");
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            if (err) {
+                console.log("!!!LOG: Error in parsing form... : " + err.toString());
+                return;
+            }
+            sql.connect(config, function(err) {
+
+                if (err) {
+                    console.log("!!!LOG: Error in connection... : " + err.toString());
+                    return;
+                }
+                var request = new sql.Request();
+                request.input('mobile', fields['mobile']);
+                request.input('email', fields['email']);
+                request.input('budget', fields['budget']);
+                request.input('category', fields['event']);
+                request.input('location', fields['location']);
+                request.query("insert into event(Category,eventLocation,budget,email) values(@category,@location,@budget,@email)", function(err, result) {
+                    if (err) {
+                        console.log("!!!LOG: Error in query retrieval... : " + err.toString());
+                        //return;
+                    }
+                    console.log(result);
+                    console.log(fields['budget'] + " " + fields['event']+ " " + fields['email']+ " " + fields['location'] + "\n" + err);
+                    sql.close();
+                    res.end();
+                    var sendText = "Greetings from EventIt! Your event is under process! Please feel free to track your event at http://eventit.com/login";
+                    try{
+                        awsservices.sendSMS(sendText, fields['mobile']);
+                    } catch(err){console.log("AWS error.close.close.Abhilash's fault")};
+                    utils.MailSend(fields['email'],sendText);
+
+                    return;
+                });
+            });
+        });
+        res.end();
     }
 	    else	
 	    {
