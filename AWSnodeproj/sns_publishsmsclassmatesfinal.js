@@ -7,7 +7,7 @@ fs.createReadStream('contacts.csv')
   .pipe(csv())
   .on('data', (row) => {
     var name = row.Name;
-    var number = row['Phone 3 - Value'];
+    var number = row['Phone 1 - Value'];
     if(name.slice(name.length-9,name.length)=='Classmate')
     {
       //console.log("LOG : CLASSMATE DETECTED...:")
