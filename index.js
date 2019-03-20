@@ -219,10 +219,12 @@ function parseCookies(request) {
         form.parse(req, function(err, fields, files) {
         console.log(fields['guests']);
         var sendText = "Dear friend, we cordially invite you for our celebrations on 31.3.19, at the Residency!";
-        utils.MailSend(fields['guests'],sendText);
-         
-        //redirect user:
-        var redirect = './pages/static/customer_ui/clanding.html';
+        utils.MailSend(fields['guests'],sendText);        
+    });
+
+    //redirect user:
+   
+    var redirect = './pages/static/customer_ui/confirmed_invite.html';
 		fs.readFile(redirect, function(err, data) 
 		{
 			if (err) 
@@ -238,8 +240,7 @@ function parseCookies(request) {
     		res.write(data);
     		return res.end();
   		});
-               
-    });
+    
   }
   else if (q.pathname == '/login/submit') {
         var form = new formidable.IncomingForm();
