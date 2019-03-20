@@ -2,7 +2,7 @@
 
 <html>
 <head bgcolor = #FFFFFF>
-    <h1><center>Caterer registration page</center></h1>
+    <h1><center>Invite guests!!</center></h1>
 </head>
 <style>
 
@@ -24,7 +24,7 @@ body  {
 
 
 
-   background-image: url("https://ak2.picdn.net/shutterstock/videos/20149732/thumb/1.jpg");
+   background-image: url("https://thumbs.dreamstime.com/b/vintage-flower-background-15263759.jpg");
 
     /* Full height */
 
@@ -453,122 +453,31 @@ document.getElementById('not_disabled').onclick = function() {
 
      </script>
 
-  <form class="modal-content" action="http://127.0.0.1:8080/submit" method="post">
+  <form class="modal-content" action="http://127.0.0.1:8080/invite" method="post">
 
    
 
     <div class="container">
 
-      <p>Dear employee, please fill in this form to register a caterer on our portal.</p>
+      <p>Dear customer, please enter the email ids of your guests, and we'll take care of the rest!</p>
 
       <hr>
-      <form action="http://127.0.0.1:8080/submit" method="post"> 
+      <form action="http://127.0.0.1:8080/invite" method="post"> 
 
 
-      <label for="cname"><b>Company Name</b></label>
+      <label for="guests"><b>Invitee List</b></label>
 
-      <input type="text" placeholder="Enter the Company's name" name="cname" required><br>
-
-
-      <label for="lname"><b>Contact person's name</b></label>
-
-      <input type="text" placeholder="Enter name" name="lname" required><br>
+      <input type="text" placeholder="Enter the list of guest's email ids separated by a comma" name="guests" required><br>
 
 
-      <label for="mobile"><b>Mobile Number</b></label>
-
-      <input type="text" placeholder="Enter mobile number" name="mobile" required><br>
-
-
-
-      <label for="email"><b>Email</b></label>
-
-      <input type="text" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"placeholder="Enter email address" name="email" required><br>
-
-
-      <label for="oaddress"><b>Office Address</b></label>
-
-      <input type="text" placeholder="Your office Address" name="oaddress" ><br>
-
-
-
-      <label for="phone"><b>Telephone</b></label>
-
-      <input type="tel" placeholder="+Your number here" name="phone" required><br>
-
-
-      <label><b>Type of service provided (If the company provides more than 1 service, please enter separately)</b><br> </label>
-
-      <div class="maxl">
-
-      <label class="radio inline"> 
-
-      <input type="radio" name="service" value="Food" checked>
-
-      <span> Food </span> 
-
-      </label>
-
-      <label class="radio inline"> 
-
-      <input type="radio" name="service" value="Music" checked>
-
-      <span> Music </span> 
-
-      </label>
-
-      <label class="radio inline"> 
-
-          <input type="radio" name="service" value="Furniture" checked>
-
-          <span> Furniture </span> 
-
-      </label>
-
-      <label class="radio inline"> 
-
-      <input type="radio" name="service" value="Dance" checked>
-
-      <span> Dance </span> 
-
-     </label>
-
-      <label class="radio inline"> 
-
-      <input type="radio" name="service" value="Lighting" checked>
-
-      <span> Lighting </span> 
-
-      </label>
-
-      <label class="radio inline"> 
-
-          <input type="radio" name="service" value="Decorations" checked>
-
-          <span> Decorations </span> 
-
-      </label>
+      
 
 </div>
 
 
-          <fieldset class="checkboxgroup">
-
-        <p>City</p>
-
-        <label><input type="checkbox" name="city" value="bangalore"> Bangalore</label>
-
-        <label><input type="checkbox" name="city" value="chennai"> Chennai</label>
-
-        <label><input type="checkbox" name="city" value="bombay"> Bombay</label>
-
-    
-
-      </fieldset>
 
       
 
-   </label>
 
   
 
