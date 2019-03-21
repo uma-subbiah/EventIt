@@ -20,8 +20,10 @@ http.createServer(function (req, res)
 {
 	var q = url.parse(req.url, true);
 	var filename = "./pages/static" + q.pathname;
-	if(filename[filename.length-1]=='/')
+	if(filename[filename.length-1]=='c')
 		filename+='enter_caterer.html';
+	else if(filename[filename.length-1]=='m')
+		filename+='enter_media_partner.html';
 	console.log(q.pathname);
 	
 	if(q.pathname=='/submit')
