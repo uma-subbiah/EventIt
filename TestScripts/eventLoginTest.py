@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as cond
 from selenium.common.exceptions import TimeoutException
 print("trying to open page...")  
-browser = webdriver.Firefox()
+browser = webdriver.Safari()
 browser.get("http://localhost:8080/login")
   
 username = browser.find_element_by_id("email")
