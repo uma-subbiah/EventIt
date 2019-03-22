@@ -157,8 +157,60 @@ function parseCookies(request) {
 				awsservices.sendSMS(sendText, fields['mobile']);
             });
         });
-	}
-	else if (q.pathname == '/regsuccess') 
+    }
+    else if (q.pathname == '/invite') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+        console.log(fields['guests']);
+        var sendText = "Dear friend, we cordially invite you for our celebrations on 31.3.19, at the Residency!";
+        utils.MailSend(fields['guests'],sendText);        
+    });
+
+    //redirect user:
+   
+    var redirect = './pages/static/customer_ui/confirmed_invite.html';
+		fs.readFile(redirect, function(err, data) 
+		{
+			if (err) 
+			{
+				console.log(filename)
+				res.writeHead(404, {'Content-Type': 'text/html'});
+				return res.end("404 Not Found!!!!!!!!");
+			}	 
+			else
+    		{
+				res.writeHead(200, {'Content-Type': 'text/html'});
+			}
+    		res.write(data);
+    		return res.end();
+  		});
+    
+  }
+  else if (q.pathname == '/login/submit') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            sql.connect(config, function(err) {
+                var request = new sql.Request();
+                request.input('mail', fields['email']);
+                console.log("LOG: email : " + fields['email']);
+                request.query("select password from customer where email=@mail;", function(err, result) {
+                    //console.log("LOG : Login query result : "+result);
+                    //console.log("LOG : Login query result : "+result["recordsets"][0][0].password);
+                    if (err) {
+                        console.log("!!!LOG: Error in query retrieval... : " + err);
+                        return;
+                    }
+                    sql.close();
+                    if (result["recordset"][0]["password"] == fields['password']) {
+                        res.write('<head><meta http-equiv="refresh" content="0; URL=/customer_ui/clanding.html" /></head>');
+                        res.end();
+                        return;
+                    }
+                });
+            });
+        });
+    }
+	else if (q.pathname == '/regsuccess')
     {
         fs.readFile('./pages/static/RegSuccess/index.html', function(err, data) 
 		{
