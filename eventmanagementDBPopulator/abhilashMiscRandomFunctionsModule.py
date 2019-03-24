@@ -1,5 +1,51 @@
 import random
 import pyodbc
+def randomReview():
+    x = random.randint(1,8)
+    if(x==1):
+        x = random.randint(1,10)
+        if(x==1):
+            return "Not satisfied"
+        elif(x==2):
+            return "Bad Event"
+        elif(x==3):
+            return "Could be more organized"
+        elif(x==4):
+            return "Staff weren't user friendly"
+        elif(x==5):
+            return "Disappointing. Please give value service for the money you took"
+        elif(x==6):
+            return "Horrible Services!"
+        elif(x==7):
+            return "Mostly it was great, but I felt the decorations could be better."
+        elif(x==8):
+            return "Please improve your entertainment methods. Quite lame, honestly."
+        elif(x==9):
+            return "Mostly happy, but a lil' annoyed cuz the event manager yelled at my kid."
+        else:
+            return "Do you know how to conduct an event at all!? It felt like freaking hell!"
+    else:
+        x = random.randint(1,10)
+        if(x==1):
+            return "An absolutely brilliant event"
+        elif(x==2):
+            return "Loved it. Thanks to the event manager."
+        elif(x==3):
+            return "Excellent "
+        elif(x==4):
+            return "A really good party. Thanks."
+        elif(x==5):
+            return "Loved the food and entertainment."
+        elif(x==6):
+            return "Music band was the highlight. Loved the event, thanks."
+        elif(x==7):
+            return "Flawless it was! Quick response from team EventIt on call. Thanks guys!"
+        elif(x==8):
+            return "A moderately good event. Keep it up."
+        elif(x==9):
+            return "Apart from the yelling event manager, the event was great!"
+        else:
+            return "Nice decorations, friendly staff, and an extremely amazing band."
 def randomCaste():
     x = random.randint(1,10)
     if(x<=2):
