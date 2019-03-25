@@ -138,7 +138,7 @@
     </main>
     <div class="testimonials-clean"></div>
     <section class="portfolio-block website gradient">
-        <h1>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Comparison Chart</h1>
+        <h1>&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Comparison Chart</h1>
         
             <div id='myChart' style="height: 800px"><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
             <script>
@@ -147,7 +147,7 @@
                         "type": "bar",
                         "background-color": "white",
                         "title": {
-                          "text": "Comparison With Overall Event Statistics",
+                          "text": "Comparison With Other Similar Events",
                           "font-color": "#7E7E7E",
                           "backgroundColor": "none",
                           "font-size": "22px",
@@ -156,7 +156,8 @@
                         },
                         "plotarea": {
                             "margin": "dynamic",
-                            "height":"500px"
+                            "height":"500px",
+                            "marginLeft":"50px"
                         },
                         "legend": {
                           "layout": "x3",
@@ -170,7 +171,7 @@
                             "border-color": "none",
                             "size": "10px"
                           },
-                          "border-width": 0,
+                          "border-width": 50,
                           "maxItems": 3,
                           "toggle-action": "hide",
                           "pageOn": {
@@ -202,12 +203,12 @@
                           "item": {
                             "font-color": "#7e7e7e"
                           },
-                          "values": "0:60:10",
+                          "values": "0:5:1",
                           "guide": {
                             "visible": true
                           },
                           "label": {
-                            "text": "$ Billions",
+                            "text": "Rating Out Of 5",
                             "font-family": "arial",
                             "bold": true,
                             "font-size": "14px",
@@ -216,10 +217,11 @@
                         },
                         "scaleX": {
                           "values": [
-                            "Q3",
-                            "Q4",
-                            "Q1",
-                            "Q2"
+                            "Overall",
+                            "Manager Behaviour",
+                            "Food",
+                            "Entertainment",
+                            "Future Booking Preference"
                           ],
                           "placement": "default",
                           "tick": {
@@ -248,75 +250,69 @@
                           "line-width": "100%",
                           "alpha": 0.18,
                           "plot-label": {
-                            "header-text": "%kv Sales"
+                            "header-text": "%kv Ratings"
                           }
                         },
                         "series": [{
                           "values": [
-                            37.47,
-                            57.59,
-                            45.65,
-                            37.43
+                            //##currentEventOverall,
+                            //##currentEventManager,
+                            //##currentEventFood,
+                            //##currentEventEntertainment,
+                            //##currentEventFuture
                           ],
                           "alpha": 0.95,
                           "borderRadiusTopLeft": 7,
                           "background-color": "#8993c7",
-                          "text": "Apple",
+                          "text": "@@currentEvent",
                         }, {
                           "values": [
-                            2.02,
-                            2.59,
-                            2.5,
-                            2.91
+                            //##eventID1Overall,
+                            //##eventID1Manager,
+                            //##eventID1Food,
+                            //##eventID1Entertainment,
+                            //##eventID1Future
                           ],
                           "borderRadiusTopLeft": 7,
                           "alpha": 0.95,
                           "background-color": "#fdb462",
-                          "text": "Facebook"
+                          "text": "@@eventID1"
                         }, {
                           "values": [
-                            13.4,
-                            14.11,
-                            14.89,
-                            16.86
+                            //##eventID2Overall,
+                            //##eventID2Manager,
+                            //##eventID2Food,
+                            //##eventID2Entertainment,
+                            //##eventID2Future
                           ],
                           "alpha": 0.95,
                           "borderRadiusTopLeft": 7,
                           "background-color": "#8dd3c7",
-                          "text": "Google"
+                          "text": "@@eventID2"
                         }, {
                           "values": [
-                            18.53,
-                            24.52,
-                            20.4,
-                            23.38
+                            //##eventID3Overall,
+                            //##eventID3Manager,
+                            //##eventID3Food,
+                            //##eventID3Entertainment,
+                            //##eventID3Future
                           ],
                           "borderRadiusTopLeft": 7,
                           "alpha": 0.95,
                           "background-color": "#fb8072",
-                          "text": "Microsoft"
+                          "text": "@@eventID3"
                         }, {
                           "values": [
-                            17.09,
-                            25.59,
-                            19.74,
-                            19.34
+                            //##eventID4Overall,
+                            //##eventID4Manager,
+                            //##eventID4Food,
+                            //##eventID4Entertainment,
+                            //##eventID4Future
                           ],
                           "borderRadiusTopLeft": 7,
                           "alpha": 0.95,
                           "background-color": "#80b1d3",
-                          "text": "Amazon"
-                        }, {
-                          "values": [
-                            2.31,
-                            2.36,
-                            2.42,
-                            2.52
-                          ],
-                          "borderRadiusTopLeft": 7,
-                          "alpha": 0.95,
-                          "background-color": "#b3de69",
-                          "text": "Cognizant"
+                          "text": "@@eventID4"
                         }]
                       }]
                     };

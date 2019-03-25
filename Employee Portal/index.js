@@ -4,7 +4,7 @@ const app = express();
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
-var sql=require('mssql');
+var sql = require('mssql');
 var bodyParser = require('body-parser');
 var formidable=require('formidable');
 var config = {
@@ -20,6 +20,10 @@ http.createServer(function (req, res)
 {
 	var q = url.parse(req.url, true);
 	var filename = "./pages/static" + q.pathname;
+	if (filename[filename.length - 1] == '/') {
+        filename += 'index.html';
+        console.log("LOG: Employee Landing page requested by a client... ");
+    }
 	if(filename[filename.length-1]=='c')
 		filename+='enter_caterer.html';
 	else if(filename[filename.length-1]=='m')
@@ -134,4 +138,4 @@ http.createServer(function (req, res)
     		return res.end();
   		});
 	}
-}).listen(8080);
+}).listen(3000);

@@ -243,7 +243,7 @@ http.createServer(function(req, res) {
         });
 
     } else if (q.pathname == '/login/submit') {
-        var st;
+        var st,redirect;
         fs.readFile('./pages/static/RegSuccess/index.html', function(err, data) {
             if (err) throw err;
             st = data.toString();
@@ -272,8 +272,10 @@ http.createServer(function(req, res) {
                 console.log("LOG: usertype : " + usertype);
                 if (usertype == 'user') {
                     querytext = querytext.replace('tablename', 'customer');
+                    redirect = "/customer_ui/clanding.html";
                 } else {
                     querytext = querytext.replace('tablename', 'employee');
+                    redirect = "localhost:3000/";
                 }
                 querytext = querytext.replace('@mail', fields['email']);
                 console.log("query is " + querytext);
@@ -293,7 +295,7 @@ http.createServer(function(req, res) {
                     try {
 
                         if (result["recordset"][0]["password"] == fields['password']) {
-                            res.write('<head><meta http-equiv="refresh" content="0; URL=/customer_ui/clanding.html" /></head>');
+                            res.write('<head><meta http-equiv="refresh" content="0; URL="'+redirect+'" /></head>');
                             console.log("LOG: Login success.")
                             res.end();
                         } else {
