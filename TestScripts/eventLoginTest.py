@@ -4,15 +4,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as cond
 from selenium.common.exceptions import TimeoutException
 print("trying to open page...")  
-browser = webdriver.Safari()
+browser = webdriver.Firefox()
 browser.get("http://localhost:8080/login")
-  
+print("page opened...")
 username = browser.find_element_by_id("email")
 password = browser.find_element_by_id("password")
 submit   = browser.find_element_by_name("submit")
-  
-username.send_keys("uasdfiuh@sdf.com")
-password.send_keys("uma")
+print("username:abhilash.venkyy@gmail.com")
+print("password:abhi")
+username.send_keys("abhilash.venkyy@gmail.com")
+password.send_keys("abhi")
   
 submit.click()
   
@@ -22,4 +23,4 @@ try:
     print ("Successful login!")
 except TimeoutException:
     print("Loading timeout expired")
-  
+input()

@@ -272,10 +272,10 @@ http.createServer(function(req, res) {
                 console.log("LOG: usertype : " + usertype);
                 if (usertype == 'user') {
                     querytext = querytext.replace('tablename', 'customer');
-                    redirect = "/customer_ui/clanding.html";
+                    redirect = "http://localhost:8080/customer_ui/clanding.html";
                 } else {
                     querytext = querytext.replace('tablename', 'employee');
-                    redirect = "localhost:3000/";
+                    redirect = "http://localhost:3000/";
                 }
                 querytext = querytext.replace('@mail', fields['email']);
                 console.log("query is " + querytext);
@@ -295,8 +295,9 @@ http.createServer(function(req, res) {
                     try {
 
                         if (result["recordset"][0]["password"] == fields['password']) {
-                            res.write('<head><meta http-equiv="refresh" content="0; URL="'+redirect+'" /></head>');
-                            console.log("LOG: Login success.")
+                            console.log("LOG: Login success. redirecting to "+redirect)
+                            res.write('<head><meta http-equiv="refresh" content="0; URL='+redirect+'" /></head>');
+                            
                             res.end();
                         } else {
                             console.log("LOG: Login failed. Incorrect Password");

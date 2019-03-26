@@ -75,6 +75,59 @@ http.createServer(function (req, res)
     		return res.end();
   		});
 	}
+	else if(q.pathname=='/eventstats')
+	{
+		var st;
+		fs.readFile('./pages/static/eventStatistics/index.html', function(err, data) 
+		{
+			if (err) 
+			{
+				console.log(filename)
+				res.writeHead(404, {'Content-Type': 'text/html'});
+				return res.end("404 Not Found!!!!!!!!");
+			}	 
+			else
+    		{
+				st = data.toString();
+			}
+		  });
+		var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            sql.connect(config, function(err) {
+				var request = new sql.Request();
+				var eventid = fields['eventid']
+				console.log("LOG Ev ID ",eventid)
+                request.query("select category,e.empid,eventlocation,name from event e ,employee m where e.empID=m.empID and eventID="+eventid+";", function(err, result) {
+                    if (err){
+						console.log("error")
+					}
+					console.log("LOG: Event Query Success");
+					try{
+						for (i in result['recordset']) {
+							console.log(result['recordset'][i]);
+						}
+						var category = result["recordset"][0]["category"];
+						var location = result["recordset"][0]["eventlocation"]
+						var managerid = result["recordset"][0]["empid"]
+						var managername = result["recordset"][0]["name"]
+						st = st.replace('@@eventID',fields['eventid'])
+						st = st.replace('@@eventCAT',category);
+						st = st.replace('@@eventLOCATION',location);
+						st = st.replace('@@eventMANAGER',managername);
+						st = st.replace('@@eventManagerID','EmpID:'+managerid);
+						res.write(st);
+                    	res.end();
+					}
+					catch (e)
+					{
+						console.log('LOG: Error in processing result.'+e.toString())
+					}
+                    //console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
+                    sql.close();
+                });
+            });
+        });
+	}
 	else 	if(q.pathname=='/submit_m')
 	{
 		console.log("Hi");

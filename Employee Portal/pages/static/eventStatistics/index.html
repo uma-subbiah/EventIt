@@ -26,7 +26,7 @@
         </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Brand</title>
+    <title>eventIt - Statistics</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
@@ -54,7 +54,11 @@
             <h1>Event ID : @@eventID</h1>
             <div class="container">
                 <div class="about-me">
-                    <p>Event Type: @@eventTYPE</p>
+                    <p>Event Category: @@eventCAT</br>
+                      Event Location: @@eventLOCATION</br>
+                      Event Manager: @@eventMANAGER(@@eventManagerID)
+                    </p>
+
                     <p></p><a class="btn btn-outline-primary" role="button" href="#">Contact Event Manager</a></div>
             </div>
         </section>
@@ -75,28 +79,28 @@
                 <div class="d-flex justify-content-center align-items-center content" style="margin:8px;">
                     <p style="font-size:21px;padding-top:10px;">Overall Event Rating &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:</p>
                     <div class="progress" style="width:153px;height:23px;margin:7px;">
-                        <div class="progress-bar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
-                    </div><span class="badge badge-primary">5.0</span></div>
+                        <div class="progress-bar" aria-valuenow="@@overallprog" aria-valuemin="0" aria-valuemax="100" style="width: @overallprog%;">@@overallprog%</div>
+                    </div><span class="badge badge-primary">@@overallval</span></div>
                 <div class="d-flex justify-content-center align-items-center content" style="margin:8px;">
                     <p style="font-size:21px;padding-top:10px;">Manager Rating &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :</p>
                     <div class="progress" style="width:153px;height:23px;margin:7px;">
-                        <div class="progress-bar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">80%</div>
-                    </div><span class="badge badge-primary">4.0</span></div>
+                        <div class="progress-bar" aria-valuenow="@@managerprog" aria-valuemin="0" aria-valuemax="100" style="width: @@managerprog%;">@@managerprog%</div>
+                    </div><span class="badge badge-primary">@@managerval</span></div>
                 <div class="d-flex justify-content-center align-items-center content" style="margin:8px;">
                     <p style="font-size:21px;padding-top:10px;">Food Rating &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:&nbsp;</p>
                     <div class="progress" style="width:153px;height:23px;margin:7px;">
-                        <div class="progress-bar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
-                    </div><span class="badge badge-primary">3.0</span></div>
+                        <div class="progress-bar" aria-valuenow="@@foodprog" aria-valuemin="0" aria-valuemax="100" style="width: @@foodprog%;">@@foodprog%</div>
+                    </div><span class="badge badge-primary">@foodval</span></div>
                 <div class="d-flex justify-content-center align-items-center content" style="margin:8px;">
                     <p style="font-size:21px;padding-top:10px;">Entertainment Rating &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:</p>
                     <div class="progress" style="width:153px;height:23px;margin:7px;">
-                        <div class="progress-bar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">40%</div>
-                    </div><span class="badge badge-primary">2.0</span></div>
+                        <div class="progress-bar" aria-valuenow="@@entertainmentprog" aria-valuemin="0" aria-valuemax="100" style="width: @@entertainmentprog%;">@@entertainmentprog%</div>
+                    </div><span class="badge badge-primary">@entertainmentval</span></div>
                 <div class="d-flex justify-content-center align-items-center content" style="margin:8px;">
                     <p style="font-size:21px;padding-top:10px;">Future Booking Preference &nbsp;:</p>
                     <div class="progress" style="width:153px;height:23px;margin:7px;">
-                        <div class="progress-bar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">20%</div>
-                    </div><span class="badge badge-primary">1.0</span></div>
+                        <div class="progress-bar" aria-valuenow="@futureprog" aria-valuemin="0" aria-valuemax="100" style="width: @futureprog%;">@futureprog%</div>
+                    </div><span class="badge badge-primary">@futureval</span></div>
             </div>
         </section>
         <section class="portfolio-block skills">
