@@ -372,7 +372,14 @@ http.createServer(function(req, res) {
     else if (q.pathname == '/login') 
     {
         //var cookies = parseCookies(req);
-        
+        var cookies=parseCookies(req),info;
+	if(cookies["login"]!=null && cookies["login"]!="0")
+	{
+		info=cookies["login"].split("~");
+		
+		//console.log(u);
+	//	console.log(info);
+	}
         if (cookies["login"]!=null && cookies["login"]!="0") 
         {
             res.writeHead(200, {
