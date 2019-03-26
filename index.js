@@ -297,13 +297,14 @@ http.createServer(function(req, res) {
                     }
                     console.log(result);
                     console.log(fields['budget'] + " " + fields['event'] + " " + fields['email'] + " " + fields['location'] + "\n" + err);
-                    //sql.close();
-                    res.end();
+                    sql.close();
+                    //res.end();
                     var sendText = "Greetings from EventIt! Your event is under process! Please feel free to track your event at http://eventit.com/login";
                     try {
                         awsservices.sendSMS(sendText, fields['mobile']);
                     } catch (err) { console.log("AWS error.close.close.Abhilash's fault") };
                     utils.MailSend(fields['email'], sendText);
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=/GivePreferences/ContactForm_v5/index.html" /></head>');
 
                     return;
                 });
@@ -373,4 +374,4 @@ http.createServer(function(req, res) {
             return res.end();
         });
     }
-}).listen(8080);
+}).listen(8086);
