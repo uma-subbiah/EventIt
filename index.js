@@ -217,9 +217,14 @@ http.createServer(function(req, res) {
                     res.write('<head><meta http-equiv="refresh" content="0; URL=/regsuccess" /></head>');
                     res.end();
                 });
+                var datetime = new Date();
                 var sendText = "Dear " + fields['fname'] + ", you have been successfully registered on EventIt.com! Please feel free to log in anytime at http://eventit.com/login";
                 awsservices.sendSMS(sendText, fields['mobile']);
                 utils.MailSend(fields['email'], sendText);
+                fs.appendFile('./MailLogs/MAIL_LOGS.txt', '\n==\n=='+datetime+'\nMAIL\n'+sendText, function (err) {
+                    if (err) throw err;
+                    console.log('Saved!');
+                  });
             });
         });
     } else if (q.pathname == '/invite') {
@@ -416,6 +421,7 @@ http.createServer(function(req, res) {
                     console.log(fields['budget'] + " " + fields['event'] + " " + fields['email'] + " " + fields['location'] + "\n" + err);
                     sql.close();
                     res.end();
+                    var datetime = new Date();
                     var sendText = "Greetings from EventIt! Your event is under process! Please feel free to track your event at http://eventit.com/login";
                     try {
                         awsservices.sendSMS(sendText, fields['mobile']);
@@ -423,7 +429,10 @@ http.createServer(function(req, res) {
                         console.log("AWS error.close.close.Abhilash's fault")
                     };
                     utils.MailSend(fields['email'], sendText);
-
+                    fs.appendFile('./MailLogs/MAIL_LOGS.txt', '\n==\n=='+datetime+'\nMAIL\n'+sendText, function (err) {
+                        if (err) throw err;
+                        console.log('Saved!');
+                      });
                     return;
                 });
             });
