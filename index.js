@@ -15,18 +15,23 @@ var config = {
         encrypt: true
     }
 };
-
 function parseCookies(request) {
     var list = {},
         rc = request.headers.cookie;
-
-    rc && rc.split(';').forEach(function(cookie) {
+        rc && rc.split(';').forEach(function(cookie) {
         var parts = cookie.split('=');
         list[parts.shift().trim()] = decodeURI(parts.join('='));
     });
+    
     return list;
 }
 http.createServer(function(req, res) {
+    /*{
+        res.writeHead(200, {
+            'Set-Cookie': {'mycookie'='test';'x'='hrl';'y'='hrlo';},
+            'Content-Type': 'text/plain'
+          });
+    }*/
     //console.log("LOG: req url :"+req.url);
     var q = url.parse(req.url, true);
     var filename = "./pages/static" + q.pathname;
@@ -34,6 +39,8 @@ http.createServer(function(req, res) {
         filename += 'index.html';
         console.log("LOG: Landing page requested by a client... ");
     }
+    var cookies=parseCookies(req);
+    //onsole.log(cookies.toString());
     if (q.pathname == '/AdminLanding') {
         try {
             // connect to your database
@@ -207,7 +214,7 @@ http.createServer(function(req, res) {
                     console.log("LOG: REG SUCCESSFUL!");
                     //console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
                     sql.close();
-                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://localhost/regsuccess" /></head>');
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=/regsuccess" /></head>');
                     res.end();
                 });
                 var sendText = "Dear " + fields['fname'] + ", you have been successfully registered on EventIt.com! Please feel free to log in anytime at http://eventit.com/login";
@@ -244,6 +251,7 @@ http.createServer(function(req, res) {
 
     } else if (q.pathname == '/login/submit') {
         var st,redirect;
+        var ckie="";
         fs.readFile('./pages/static/RegSuccess/index.html', function(err, data) {
             if (err) throw err;
             st = data.toString();
@@ -266,16 +274,27 @@ http.createServer(function(req, res) {
                     return;
                 }
                 var request = new sql.Request();
-                var querytext = "select password from tablename where email='@mail';";
+                var querytext = "select * from tablename where email='@mail';";
                 console.log("LOG: email : " + fields['email']);
                 var usertype = fields['usertype'];
                 console.log("LOG: usertype : " + usertype);
-                if (usertype == 'user') {
+                if (usertype == 'user') 
+                {
+                    ckie="u";
                     querytext = querytext.replace('tablename', 'customer');
-                    redirect = "http://localhost:8080/customer_ui/clanding.html";
-                } else {
+                    redirect = "/landing";
+                }
+                else if(usertype=="manager") 
+                {
+                    ckie="m";
+                    querytext = querytext.replace('tablename', 'manager');
+                    redirect = "/landing";
+                } 
+                else 
+                {
+                    ckie="e"
                     querytext = querytext.replace('tablename', 'employee');
-                    redirect = "http://localhost:3000/";
+                    redirect = "http://eventit.com:3000/";
                 }
                 querytext = querytext.replace('@mail', fields['email']);
                 console.log("query is " + querytext);
@@ -292,10 +311,15 @@ http.createServer(function(req, res) {
                     }
                     console.log('LOG:no query retrieval error...');
                     console.log('QUERY RESUL :' + result);
+                    
                     try {
-
                         if (result["recordset"][0]["password"] == fields['password']) {
                             console.log("LOG: Login success. redirecting to "+redirect)
+                            ckie=ckie+"~"+result["recordset"][0]["ID"]+"~"+result["recordset"][0]["mobile"]+"~"+result["recordset"][0]["email"];
+                            res.writeHead(200, {
+                                'Set-Cookie': 'login='+ckie+";Path=/",
+                                'Content-Type': 'text/html'
+                              });
                             res.write('<head><meta http-equiv="refresh" content="0; URL='+redirect+'" /></head>');
                             
                             res.end();
@@ -339,15 +363,20 @@ http.createServer(function(req, res) {
             res.write(st);
             res.end();
         });
-    } else if (q.pathname == '/login') {
-        var cookies = parseCookies(req);
-        res.writeHead(200, {
-            'Content-Type': 'text/html'
-        });
-        if (false && (cookies['LoggedInCustID'] != null && cookies['LoggedInCustID'] != "-1")) {
-
-            res.write('<head><meta http-equiv="refresh" content="0; URL=http://www.eventit.com/landing/" /></head>');
-            res.end();
+    } 
+    else if (q.pathname == '/login') 
+    {
+        //var cookies = parseCookies(req);
+        
+        if (cookies["login"]!=null && cookies["login"]!="0") 
+        {
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            console.log("Cookie parse success "+cookies["login"]+"\n");
+            res.write('<head><meta http-equiv="refresh" content="0; URL=/landing/" /></head>');
+            //res.write('<head><meta http-equiv="refresh" content="0; URL=http://eventit.com:8080/landing/" /></head>');
+            return res.end();
         } else {
             res.writeHead(200, {
                 'Content-Type': 'text/html'
@@ -400,7 +429,66 @@ http.createServer(function(req, res) {
             });
         });
         res.end();
-    } else {
+    }
+    else if(q.pathname=="/logout")
+    {
+        res.writeHead(200, {
+            'Set-Cookie': 'login=0;Path=/',
+            'Content-Type': 'text/html'
+          });
+        res.write('<head><meta http-equiv="refresh" content="0; URL=http://eventit.com:8080/" /></head>');
+        return res.end();
+    }
+    else if(q.pathname.startsWith("/landing",0))
+    {
+        var info,e,m,u;
+        if(cookies["login"]!=null && cookies["login"]!="0")
+        {
+            info=cookies["login"].split("~");
+            m=(info[0]=="m");
+            u=(info[0]=="u");
+            console.log(u);
+        }
+        else
+        {
+            res.write('<head><meta http-equiv="refresh" content="0; URL=/login" /></head>');
+            return res.end();
+        }
+        if(u&&q.pathname=="/landing")
+        {
+            fs.readFile('./pages/static/customer_ui/clanding.html', function(err, data1) {
+                var st = data1.toString();
+                res.write(st);
+                res.end();
+            });
+        }
+        else 
+        {
+            fs.readFile(filename, function(err, data) 
+            {
+                if (err) 
+                {
+                    console.log(filename + "NOT FOUND!\n")
+                    fs.readFile('./pages/static/404/index.html', function(err, data1) 
+                    {
+                        var st = data1.toString();
+                        res.write(st);
+                        return res.end();
+                    }); 
+                }
+                else 
+                {
+                    res.writeHead(200, {
+                        'Content-Type': 'text/html'
+                    });
+                    res.write(data.toString());
+                    return res.end();
+                }
+            });
+        }
+    } 
+    else {
+        
         fs.readFile(filename, function(err, data) {
             if (err) {
                 console.log(filename + "NOT FOUND!\n")
