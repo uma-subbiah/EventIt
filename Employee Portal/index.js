@@ -17,8 +17,31 @@ var config = {
 	  encrypt: true
 	 } 
 };
+function parseCookies(request) {
+    var list = {},
+        rc = request.headers.cookie;
+        rc && rc.split(';').forEach(function(cookie) {
+        var parts = cookie.split('=');
+        list[parts.shift().trim()] = decodeURI(parts.join('='));
+    });
+    
+    return list;
+}
 http.createServer(function (req, res) 
 {
+	var cookies=parseCookies(req),u,info;
+	if(cookies["login"]!=null && cookies["login"]!="0")
+	{
+		info=cookies["login"].split("~");
+		u=(info[0]=="u");
+		console.log(u);
+		console.log(info);
+	}
+	else
+	{
+		res.write('<head><meta http-equiv="refresh" content="0; URL=http://eventit.com:8080/login" /></head>');
+		return res.end();
+	}
 	var q = url.parse(req.url, true);
 	var filename = "./pages/static" + q.pathname;
 	if (filename[filename.length - 1] == '/') {
