@@ -304,7 +304,8 @@ http.createServer(function(req, res) {
                         awsservices.sendSMS(sendText, fields['mobile']);
                     } catch (err) { console.log("AWS error.close.close.Abhilash's fault") };
                     utils.MailSend(fields['email'], sendText);
-                    res.write('<head><meta http-equiv="refresh" content="0; URL=/GivePreferences/ContactForm_v5/index.html" /></head>');
+                    // res.write('<head><meta http-equiv="refresh" content="0; URL=/GivePreferences/ContactForm_v5/index.html" /></head>');
+                    res.end();
 
                     return;
                 });
