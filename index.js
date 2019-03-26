@@ -462,6 +462,14 @@ http.createServer(function(req, res) {
                 res.end();
             });
         }
+        else if(u&&q.pathname=="/landing/request")
+        {
+            fs.readFile('./pages/static/event_ask.html', function(err, data1) {
+                var st = data1.toString();
+                res.write(st);
+                res.end();
+            });
+        }
         else 
         {
             fs.readFile(filename, function(err, data) 
