@@ -27,12 +27,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eventIt - Statistics</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="./assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">
-    <link rel="stylesheet" href="assets/css/Simple-Slider.css">
-    <link rel="stylesheet" href="assets/css/Testimonials.css">
+    <link rel="stylesheet" href="./assets/css/Simple-Slider.css">
+    <link rel="stylesheet" href="./assets/css/Testimonials.css">
 </head>
 
 <body>
@@ -41,10 +41,7 @@
             <div class="collapse navbar-collapse"
                 id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="index.html">Home</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="projects-grid-cards.html">Projects</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="cv.html">CV</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="hire-me.html">Hire me</a></li>
+
                 </ul>
             </div>
         </div>
@@ -54,9 +51,9 @@
             <h1>Event ID : @@eventID</h1>
             <div class="container">
                 <div class="about-me">
-                    <p>Event Category: @@eventCAT</br>
-                      Event Location: @@eventLOCATION</br>
-                      Event Manager: @@eventMANAGER(@@eventManagerID)
+                    <p>Event Category:  <b>@@eventCAT</b></br>
+                      Event Location:  <b>@@eventLOCATION</b></br>
+                      Event Manager:  <b>@@eventMANAGER(@@eventManagerID)</b>
                     </p>
 
                     <p></p><a class="btn btn-outline-primary" role="button" href="#">Contact Event Manager</a></div>
@@ -79,7 +76,7 @@
                 <div class="d-flex justify-content-center align-items-center content" style="margin:8px;">
                     <p style="font-size:21px;padding-top:10px;">Overall Event Rating &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:</p>
                     <div class="progress" style="width:153px;height:23px;margin:7px;">
-                        <div class="progress-bar" aria-valuenow="@@overallprog" aria-valuemin="0" aria-valuemax="100" style="width: @overallprog%;">@@overallprog%</div>
+                        <div class="progress-bar" aria-valuenow="@@overallprog" aria-valuemin="0" aria-valuemax="100" style="width: @@overallprog%;">@@overallprog%</div>
                     </div><span class="badge badge-primary">@@overallval</span></div>
                 <div class="d-flex justify-content-center align-items-center content" style="margin:8px;">
                     <p style="font-size:21px;padding-top:10px;">Manager Rating &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :</p>
@@ -90,17 +87,17 @@
                     <p style="font-size:21px;padding-top:10px;">Food Rating &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:&nbsp;</p>
                     <div class="progress" style="width:153px;height:23px;margin:7px;">
                         <div class="progress-bar" aria-valuenow="@@foodprog" aria-valuemin="0" aria-valuemax="100" style="width: @@foodprog%;">@@foodprog%</div>
-                    </div><span class="badge badge-primary">@foodval</span></div>
+                    </div><span class="badge badge-primary">@@foodval</span></div>
                 <div class="d-flex justify-content-center align-items-center content" style="margin:8px;">
                     <p style="font-size:21px;padding-top:10px;">Entertainment Rating &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:</p>
                     <div class="progress" style="width:153px;height:23px;margin:7px;">
                         <div class="progress-bar" aria-valuenow="@@entertainmentprog" aria-valuemin="0" aria-valuemax="100" style="width: @@entertainmentprog%;">@@entertainmentprog%</div>
-                    </div><span class="badge badge-primary">@entertainmentval</span></div>
+                    </div><span class="badge badge-primary">@@entertainmentval</span></div>
                 <div class="d-flex justify-content-center align-items-center content" style="margin:8px;">
                     <p style="font-size:21px;padding-top:10px;">Future Booking Preference &nbsp;:</p>
                     <div class="progress" style="width:153px;height:23px;margin:7px;">
-                        <div class="progress-bar" aria-valuenow="@futureprog" aria-valuemin="0" aria-valuemax="100" style="width: @futureprog%;">@futureprog%</div>
-                    </div><span class="badge badge-primary">@futureval</span></div>
+                        <div class="progress-bar" aria-valuenow="@@futureprog" aria-valuemin="0" aria-valuemax="100" style="width: @@futureprog%;">@@futureprog%</div>
+                    </div><span class="badge badge-primary">@@futureval</span></div>
             </div>
         </section>
         <section class="portfolio-block skills">
@@ -151,7 +148,7 @@
                         "type": "bar",
                         "background-color": "white",
                         "title": {
-                          "text": "Comparison With Other Similar Events",
+                          "text": "Comparison With Other Similar Events Having Category : @@CATEGORY",
                           "font-color": "#7E7E7E",
                           "backgroundColor": "none",
                           "font-size": "22px",
@@ -238,7 +235,7 @@
                           }
                         },
                         "scaleX2": {
-                          "values": ["2013", "2014"],
+                          "values": ["", ""],
                           "placement": "default",
                           "tick": {
                             "size": 20,
@@ -339,14 +336,14 @@
     </div>
     <footer class="page-footer">
         <div class="container">
-            <div class="links"><a href="#">About me</a><a href="#">Contact me</a><a href="#">Projects</a></div>
+            <div class="links"><a href="http://localhost:8080">EventIt Customer Login</a><a href="http://localhost:3000">Back To Employee Home Screen</a><a href="#">To Top</a></div>
         </div>
     </footer>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
-    <script src="assets/js/Simple-Slider.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <script src="./assets/js/Simple-Slider.js"></script>
+    <script src="./assets/js/theme.js"></script>
 </body>
 
 </html>
