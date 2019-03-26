@@ -304,14 +304,16 @@ http.createServer(function(req, res) {
                         awsservices.sendSMS(sendText, fields['mobile']);
                     } catch (err) { console.log("AWS error.close.close.Abhilash's fault") };
                     utils.MailSend(fields['email'], sendText);
-                    res.write('<head><meta http-equiv="refresh" content="0; URL=/GivePreferences/ContactForm_v5/index.html" /></head>');
+                    console.log("purrrrfect");
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=/GivePreferences/ContactFrom_v5/index.html" /></head>');
+                    console.log("yayyyy")
                     res.end();
 
                     return;
                 });
             });
         });
-        res.end();
+
     } else if (q.pathname == '/customer_ui/delete_account/submit') {
         var form = new formidable.IncomingForm();
         form.parse(req, function(err, fields, files) {
