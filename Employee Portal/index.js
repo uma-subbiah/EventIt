@@ -1,3 +1,4 @@
+//select eventID, empID, userId, Category, eventLocation, name, d.fname as customerFirstName, d.lname as customerLastName from event e, employee c, customer d where e.empID = c.ID and d.ID=userID and empID=10 
 var alert = require('alert-node');
 const express = require('express');
 const app = express();
