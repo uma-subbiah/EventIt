@@ -379,7 +379,10 @@ http.createServer(function(req, res) {
                 'Content-Type': 'text/html'
             });
             console.log("Cookie parse success "+cookies["login"]+"\n");
+            if(info[0]!="e")
             res.write('<head><meta http-equiv="refresh" content="0; URL=/landing/" /></head>');
+            else
+            res.write('<head><meta http-equiv="refresh" content="0; URL=http://eventit.com:3000/" /></head>');
             //res.write('<head><meta http-equiv="refresh" content="0; URL=http://eventit.com:8080/landing/" /></head>');
             return res.end();
         } else {
@@ -478,6 +481,55 @@ http.createServer(function(req, res) {
                 res.write(st);
                 res.end();
             });
+        }
+        else if(u&&q.pathname=="/landing/request/submit")
+        {
+            console.log("LOG: Event ask detected ...");
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            if (err) {
+                console.log("!!!LOG: Error in parsing form... : " + err.toString());
+                return;
+            }
+            sql.connect(config, function(err) {
+
+                if (err) {
+                    console.log("!!!LOG: Error in connection... : " + err.toString());
+                    return;
+                }
+                var request = new sql.Request();
+                request.input('mobile', fields['mobile']);
+                request.input('email', fields['email']);
+                request.input('budget', fields['budget']);
+                request.input('category', fields['event']);
+                request.input('location', fields['location']);
+                request.input('userid',info[1]);
+                request.query("insert into event(Category,eventLocation,budget,email,userid) values(@category,@location,@budget,@email,@userid)", function(err, result) {
+                    if (err) {
+                        console.log("!!!LOG: Error in query retrieval... : " + err.toString());
+                        //return;
+                    }
+                    console.log(result);
+                    console.log(fields['budget'] + " " + fields['event'] + " " + fields['email'] + " " + fields['location'] + "\n" + err);
+                    sql.close();
+                    res.end();
+                    var datetime = new Date();
+                    var sendText = "Greetings from EventIt! Your event is under process! Please feel free to track your event at http://eventit.com/login";
+                    try {
+                        awsservices.sendSMS(sendText, fields['mobile']);
+                    } catch (err) {
+                        console.log("AWS error.close.close.Abhilash's fault")
+                    };
+                    utils.MailSend(fields['email'], sendText);
+                    fs.appendFile('./MailLogs/MAIL_LOGS.txt', '\n==\n=='+datetime+'\nMAIL\n'+sendText, function (err) {
+                        if (err) throw err;
+                        console.log('Saved!');
+                      });
+                    return;
+                });
+            });
+        });
+        res.end();
         }
         else 
         {
