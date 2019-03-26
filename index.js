@@ -387,7 +387,7 @@ http.createServer(function(req, res) {
             });
             console.log("Cookie parse success "+cookies["login"]+"\n");
             if(info[0]!="e")
-            res.write('<head><meta http-equiv="refresh" content="0; URL=/landing/" /></head>');
+            res.write('<head><meta http-equiv="refresh" content="0; URL=/landing" /></head>');
             else
             res.write('<head><meta http-equiv="refresh" content="0; URL=http://eventit.com:3000/" /></head>');
             //res.write('<head><meta http-equiv="refresh" content="0; URL=http://eventit.com:8080/landing/" /></head>');
@@ -489,6 +489,12 @@ http.createServer(function(req, res) {
                 res.end();
             });
         }
+        else if(u&&q.pathname=="/landing/invite"){
+
+        }
+        else if(u&&q.pathname=="/landing/invite/submit"){
+
+        }
         else if(u&&q.pathname=="/landing/request/submit")
         {
             console.log("LOG: Event ask detected ...");
@@ -516,6 +522,7 @@ http.createServer(function(req, res) {
                         console.log("!!!LOG: Error in query retrieval... : " + err.toString());
                         //return;
                     }
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=/landing" /></head>');
                     console.log(result);
                     console.log(fields['budget'] + " " + fields['event'] + " " + fields['email'] + " " + fields['location'] + "\n" + err);
                     sql.close();
