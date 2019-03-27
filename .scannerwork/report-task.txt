@@ -1,0 +1,7 @@
+organization=thegoldenaurora-github
+projectKey=TheGoldenAurora_EventIt
+serverUrl=https://sonarcloud.io
+serverVersion=7.7.0.22792
+dashboardUrl=https://sonarcloud.io/dashboard?id=TheGoldenAurora_EventIt
+ceTaskId=AWm1c_OxjpDOvS2RY5h1
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWm1c_OxjpDOvS2RY5h1
