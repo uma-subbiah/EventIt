@@ -205,7 +205,7 @@ http.createServer(function(req, res) {
                     sql.close();
 
 
-                    res.write('<head><meta http-equiv="refresh" content="0; URL=http://localhost:8080/regsuccess" /></head>');
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=/RegSuccess/index.html" /></head>');
 
                     res.end();
                 });
@@ -359,6 +359,34 @@ http.createServer(function(req, res) {
 
             });
         });
+    } else if (q.pathname == '/GivePreferences/ContactFrom_v5/preference/submit') {
+        var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            sql.connect(config, function(err) {
+                if (err) throw err;
+                var request = new sql.Request();
+                request.input('email', fields['email']);
+                request.input('phone', fields['phone']);
+                request.input('food', fields['food']);
+                request.input('place', fields['place']);
+                request.input('budget_low', fields['from-value']);
+                request.input('budget_high', fields['to-value']);
+                request.input('message', fields['message']);
+                request.query("insert into preference(email,phone,food,place,budget_low,budget_high,message) values(@email,@phone,@food,@place,@budget_low,@budget_high,@message);", function(err, result) {
+                    if (err) throw err;
+                    console.log("LOG: Event preference SUCCESSFUL!");
+                    //console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
+                    sql.close();
+
+
+                    res.write('<head><meta http-equiv="refresh" content="0; URL=/preference_submit/index.html" /></head>');
+
+                    res.end();
+                });
+            });
+        });
+
+
     } else {
         fs.readFile(filename, function(err, data) {
             if (err) {
@@ -377,4 +405,4 @@ http.createServer(function(req, res) {
             return res.end();
         });
     }
-}).listen(8086);
+}).listen(8088);
