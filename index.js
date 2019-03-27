@@ -83,6 +83,7 @@ http.createServer(function(req, res) {
         } catch (err) {
             console.log("!!!LOG : Error in fetching ContactUs page... : ");
             console.log(err);
+            console.log("hello");
         }
     } else if (q.pathname == '/ContactUs') {
         var x = 0;
