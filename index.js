@@ -89,6 +89,7 @@ http.createServer(function(req, res) {
         var x = 0;
         res.writeHead(200, { 'Content-Type': 'text/html' });
         console.log("\nLOG: ContactUs page requested by a client...")
+        console.log("\nhi")
         console.log("LOG: Attempting DB Connection...")
         try {
             // connect to your database
