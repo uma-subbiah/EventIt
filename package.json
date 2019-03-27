@@ -19,5 +19,8 @@
     "nodemailer": "^5.1.1",
     "regex": "^0.1.1",
     "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "qunit": "^2.9.2"
   }
 }

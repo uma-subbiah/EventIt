@@ -490,9 +490,39 @@ http.createServer(function(req, res) {
             });
         }
         else if(u&&q.pathname=="/landing/invite"){
+            fs.readFile('./pages/static/customer_ui/invite_guests.html', function(err, data1) {
+                var st = data1.toString();
+                res.write(st);
+                res.end();
+            });
 
         }
         else if(u&&q.pathname=="/landing/invite/submit"){
+            var form = new formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            console.log(fields['guests']);
+            var sendText = "Dear friend, we cordially invite you for our celebrations on 31.3.19, at the Residency!";
+            utils.MailSend(fields['guests'], sendText);
+        });
+
+        //redirect user:
+
+        var redirect = './pages/static/customer_ui/confirmed_invite.html';
+        fs.readFile(redirect, function(err, data) {
+            if (err) {
+                console.log(filename)
+                res.writeHead(404, {
+                    'Content-Type': 'text/html'
+                });
+                return res.end("404 Not Found!!!!!!!!");
+            } else {
+                res.writeHead(200, {
+                    'Content-Type': 'text/html'
+                });
+            }
+            res.write(data);
+            return res.end();
+        });
 
         }
         else if(u&&q.pathname=="/landing/request/submit")

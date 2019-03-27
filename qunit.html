@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+  <script>
+    function IsMail(mail)
+    {   
+       var regex = /^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$/;
+      return (mail.replace(regex,"~")=="~");
+    }
+    function IsPhone(ph)
+    {   
+       var regex = /[1-9][0-9]{9}$/;
+      return (ph.replace(regex,"~")=="~");
+    }
+    QUnit.test( "mail validation", function( assert ) 
+    {
+      assert.ok(IsMail("joe.tillis@unit.army.mil"), "Passed! Mail" );
+      assert.ok(IsMail("jack_rabbit@slims.com"), "Passed! Mail" );
+      assert.ok(IsMail("foo99@foo.co.uk"), "Passed! Mail" );
+      assert.ok(IsMail("find_the_mistake.@foo.org")==false, "Passed! Not A Mail" );
+      assert.ok(IsMail(" .prefix.@some.net")==false, "Passed! Not A Mail" );
+      assert.ok(IsMail("jack_rabbit@slims.comisjskkal")==false, "Passed! Not A Mail","Failed" );
+    });
+    QUnit.test( "Mobile Number validation", function( assert ) 
+    {
+      assert.ok(IsPhone("9442313268"), "Passed! Phone" );
+      assert.ok(IsPhone("9965825383"), "Passed! Phone" );
+      assert.ok(IsPhone("8903862626"), "Passed! Phone" );
+      assert.ok(IsPhone("890386262698")==false, "Passed!Not Phone" );
+      assert.ok(IsPhone("0903862626")==false, "Passed!Not Phone" );
+      assert.ok(IsPhone("890386")==false, "Passed!Not Phone" );
+    });
+  </script>
+</body>
+</html>

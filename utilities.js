@@ -1,4 +1,10 @@
 //Function for Sending mail
+exports.IsMail=function(mail)
+{
+    var Regex = require("regex");
+    var regex = new Regex(/^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$/);
+    return regex.test(mail);
+}
 exports.MailSend=function(recipient,message)
 {
     var nodemailer=require('nodemailer');
