@@ -2,7 +2,7 @@ module.exports = {
   sendSMS: function(message, number){
   var AWS = require('aws-sdk');
   // Set region
-  AWS.config.update({region: 'us-east-1'});
+  AWS.config.update({region: 'us-east-1 '});
   //var args = process.argv.slice(2);
   //console.log(args);
   // Create publish parameters

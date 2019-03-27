@@ -11,11 +11,3 @@ Dear Venkatesh, you have been successfully registered on EventIt.com! Please fee
 ==Wed Mar 27 2019 01:27:04 GMT+0530 (India Standard Time)
 MAIL
 Greetings from EventIt! Your event is under process! Please feel free to track your event at http://eventit.com/login
-==
-==Wed Mar 27 2019 03:02:49 GMT+0530 (India Standard Time)
-MAIL
-Dear qe12, you have been successfully registered on EventIt.com! Please feel free to log in anytime at http://eventit.com/login
-==
-==Wed Mar 27 2019 03:14:22 GMT+0530 (India Standard Time)
-MAIL
-Dear afewrwer, you have been successfully registered on EventIt.com! Please feel free to log in anytime at http://eventit.com/login

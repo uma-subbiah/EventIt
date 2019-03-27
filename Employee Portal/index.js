@@ -1,5 +1,5 @@
-//
-var alert = require('alert-node'); 
+//select eventID, empID, userId, Category, eventLocation, name, d.fname as customerFirstName, d.lname as customerLastName from event e, employee c, customer d where e.empID = c.ID and d.ID=userID and empID=10 
+var alert = require('alert-node');
 const express = require('express');
 const app = express();
 var http = require('http');
@@ -34,6 +34,8 @@ http.createServer(function (req, res)
 	{
 		info=cookies["login"].split("~");
 		u=(info[0]=="u");
+		console.log(u);
+		console.log(info);
 	}
 	else
 	{
@@ -51,61 +53,8 @@ http.createServer(function (req, res)
 	else if(filename[filename.length-1]=='m')
 		filename+='enter_media_partner.html';
 	//console.log(q.pathname);
-	if(q.pathname=='/employeelanding')
-	{
-		var st,newdiv;
-		fs.readFile('./pages/static/employee_landing_page.html', function(err, data) 
-		{
-			if (err) 
-			{
-				console.log(filename)
-				res.writeHead(404, {'Content-Type': 'text/html'});
-				return res.end("Internal Error.");
-			}	
-			st = data.toString(); 
-  		});
-		fs.readFile('./eventDIV.txt', function(err, data) 
-		{
-			if (err) 
-			{
-				console.log(filename)
-				res.writeHead(404, {'Content-Type': 'text/html'});
-				return res.end("Internal Error.");
-			}	
-			newdiv = data.toString(); 
-  		});
-			sql.connect(config, function (err){
-				var request = new sql.Request();
-				
-				console.log('${req.body.cname}');
-				request.query("select eventID, empID, userId, Category, eventLocation, name, d.fname as cFName, d.lname as cLName from event e, employee c, customer d where e.empID = c.ID and d.ID=userID and empID="+info[1]+";",function(err, result){
-					if(err)
-					{
-						console.log("Query Error : "+err)
-						sql.close();
-						return;
-					}
-					st = st.replace('employee!',result['recordset'][0]['name']+'!')
-					var thisdiv;
-					console.log("Query Success.")
-					for (i in result['recordset']) {
-						console.log(result['recordset'][i]);
-						thisdiv = newdiv
-						thisdiv = thisdiv.replace('@@eventid',result['recordset'][i]['eventID'])
-						thisdiv = thisdiv.replace('@@eventid',result['recordset'][i]['eventID'])
-						thisdiv = thisdiv.replace('@@eventid',result['recordset'][i]['eventID'])
-						thisdiv = thisdiv.replace('@@eventCategory',result['recordset'][i]['Category'])
-						thisdiv = thisdiv.replace('@@eventPlace',result['recordset'][i]['eventLocation'])
-						thisdiv = thisdiv.replace('@@cName',result['recordset'][i]['cFName']+' '+result['recordset'][i]['cLName'])
-						st = st.replace('<!--@@ADDdiv-->',thisdiv)
-					}
-					res.write(st);
-					res.end()
-					sql.close();
-				});
-			});
-	}
-	else if(q.pathname=='/submit')
+	
+	if(q.pathname=='/submit')
 	{
 		console.log("Hi");
 		var form = new formidable.IncomingForm();
@@ -196,7 +145,6 @@ http.createServer(function (req, res)
 					}
 					catch (e)
 					{
-						
 						console.log('LOG: Error in processing result.'+e.toString())
 					}
                     //console.log(fields['fname'] + " " + fields['lname'] + "\n" + err);
@@ -259,14 +207,6 @@ http.createServer(function (req, res)
 					}
 					catch (e)
 					{
-						fs.readFile('./pages/static/404/index.html', function(err, data1) {
-							var st = data1.toString();
-							st = st.replace('404. Bye. :/','The entered event ID is invalid.')
-							res.write(st);
-							res.end();
-							sql.close();
-							return;
-						});
 						console.log('LOG: Error in processing result.'+e.toString())
 					}
 					try{
@@ -382,6 +322,7 @@ http.createServer(function (req, res)
 	}
 	else	
 	{
+		//console.log("LOG:"+q.pathname+" NOT FOUND :/");
 		fs.readFile(filename, function(err, data) 
 		{
 			if (err) 

@@ -1,3 +1,3 @@
-var awsservices = require('./sns_publishsms')
-var sendText = "HIII"
-awsservices.sendSMS(sendText, 8667247094);
+var male = false;
+var text = "Dear "+(male)?"Mr.":"Ms.";
+console.log(text);
