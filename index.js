@@ -335,8 +335,9 @@ http.createServer(function(req, res) {
                         request.query("delete from customer where email=@mail", function(err, result) {
                             if (err) {
                                 console.log("!!!LOG: Error in query retrieval... : " + err.toString());
-                                //sql.close();
+                                sql.close();
                                 res.write('<head><meta http-equiv="refresh" content="0; URL=/delete_fail/index.html" /></head>');
+                                res.end();
                                 return;
                             }
                             console.log(result);
